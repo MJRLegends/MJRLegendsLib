@@ -2,14 +2,15 @@ package com.mjr.mjrlegendslib.world.gen;
 
 import java.util.Random;
 
+import com.mjr.mjrlegendslib.Constants;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import com.mjr.mjrlegendslib.Constants;
 
 public class MapGenCaveGen extends MapGenBaseMeta {
 	public static final int BREAK_THROUGH_CHANCE = 25; // 1 in n chance
@@ -155,9 +156,9 @@ public class MapGenCaveGen extends MapGenBaseMeta {
 											int metadata = state.getBlock().getMetaFromState(state);
 											if (block == this.block) {
 												if (metadata == this.subSurfaceMeta || metadata == this.stoneMeta) {
-													primer.setBlockState(localX, localY, localZ, Blocks.AIR.getDefaultState());
+													primer.setBlockState(localX, localY, localZ, Blocks.air.getDefaultState());
 												} else if (metadata == this.surfaceMeta && random.nextInt(MapGenCaveGen.BREAK_THROUGH_CHANCE) == 0) {
-													primer.setBlockState(localX, localY, localZ, Blocks.AIR.getDefaultState());
+													primer.setBlockState(localX, localY, localZ, Blocks.air.getDefaultState());
 												}
 											}
 										}

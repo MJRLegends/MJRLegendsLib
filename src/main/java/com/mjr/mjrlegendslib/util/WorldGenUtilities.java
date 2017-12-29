@@ -4,7 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -22,7 +22,7 @@ public class WorldGenUtilities {
 	public static void generateStructureWithRandom(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int randomAmountXZ) {
 		generateStructure(worldGen, world, rand, pos.add(rand.nextInt(randomAmountXZ), 0, rand.nextInt(randomAmountXZ)));
 	}
-	
+
 	public static void generateStructureWithRandom(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int randomAmountXZ, int randomAmountY) {
 		generateStructure(worldGen, world, rand, pos.add(rand.nextInt(randomAmountXZ), rand.nextInt(randomAmountY), rand.nextInt(randomAmountXZ)));
 	}
@@ -45,7 +45,7 @@ public class WorldGenUtilities {
 		if (!world.isAreaLoaded(position, loadedCheckSize))
 			return false;
 
-		for (position = position.add(0, 0, 0); position.getY() > 5 && world.isAirBlock(position) || world.getBlockState(position).getMaterial().isLiquid(); position = position.down()) {
+		for (position = position.add(0, 0, 0); position.getY() > 5 && world.isAirBlock(position) || world.getBlockState(position).getBlock().getMaterial().isLiquid(); position = position.down()) {
 			;
 		}
 
@@ -55,7 +55,7 @@ public class WorldGenUtilities {
 
 		for (int i = -checkSize; i <= checkSize; ++i) {
 			for (int j = -checkSize; j <= checkSize; ++j) {
-				if (world.isAirBlock(position.add(i, -1, j)) && world.isAirBlock(position.add(i, -2, j)) || world.getBlockState(position.add(i, -1, j)).getMaterial().isLiquid() && world.getBlockState(position.add(i, -2, j)).getMaterial().isLiquid()) {
+				if (world.isAirBlock(position.add(i, -1, j)) && world.isAirBlock(position.add(i, -2, j)) || world.getBlockState(position.add(i, -1, j)).getBlock().getMaterial().isLiquid() && world.getBlockState(position.add(i, -2, j)).getBlock().getMaterial().isLiquid()) {
 					return false;
 				}
 			}

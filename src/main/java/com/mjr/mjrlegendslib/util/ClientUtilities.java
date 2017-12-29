@@ -4,18 +4,17 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.common.model.IModelState;
-import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.google.common.base.Function;
@@ -25,11 +24,10 @@ import com.mjr.mjrlegendslib.client.model.ModelTransformWrapper;
 
 public class ClientUtilities {
 	public static void addVariants(String modID, String name, String... variants) {
-		@SuppressWarnings("deprecation")
-		Item itemBlockVariants = GameRegistry.findItem(modID, name);
+		Item itemBlockVariants = GameRegistry.findItem(Constants.modID, name);
 		ResourceLocation[] variants0 = new ResourceLocation[variants.length];
 		for (int i = 0; i < variants.length; ++i) {
-			variants0[i] = new ResourceLocation(modID + ":" + variants[i]);
+			variants0[i] = new ResourceLocation(Constants.TEXTURE_PREFIX + variants[i]);
 		}
 		ModelBakery.registerItemVariants(itemBlockVariants, variants0);
 	}
@@ -54,39 +52,32 @@ public class ClientUtilities {
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, new ModelResourceLocation(texturePrefix + name, "inventory"));
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void replaceModelDefault(String modID, ModelBakeEvent event, String resLoc, String objLoc, List<String> visibleGroups, Class<? extends ModelTransformWrapper> clazz, IModelState parentState, String... variants) {
 		if (variants.length == 0) {
 			variants = new String[] { "inventory" };
 		}
 
-		OBJModel model;
+		IBakedModel newModel;
 
 		try {
-			model = (OBJModel) ModelLoaderRegistry.getModel(new ResourceLocation(modID, objLoc));
+			OBJModel model = (OBJModel) ModelLoaderRegistry.getModel(new ResourceLocation(modID, objLoc));
 			model = (OBJModel) model.process(ImmutableMap.of("flip-v", "true"));
+
+			Function<ResourceLocation, TextureAtlasSprite> spriteFunction = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+			newModel = model.bake(new OBJModel.OBJState(visibleGroups, false, parentState), DefaultVertexFormats.ITEM, spriteFunction);
+			if (clazz != null) {
+				newModel = clazz.getConstructor(IBakedModel.class).newInstance(newModel);
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		Function<ResourceLocation, TextureAtlasSprite> spriteFunction = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
 		for (String variant : variants) {
 			ModelResourceLocation modelResourceLocation = new ModelResourceLocation(modID + ":" + resLoc, variant);
-			IBakedModel object = event.getModelRegistry().getObject(modelResourceLocation);
+			IBakedModel object = event.modelRegistry.getObject(modelResourceLocation);
 			if (object != null) {
-				if (!variant.equals("inventory"))
-					parentState = TRSRTransformation.identity();
 
-				IBakedModel newModel = model.bake(new OBJModel.OBJState(visibleGroups, false, parentState), DefaultVertexFormats.ITEM, spriteFunction);
-				if (clazz != null) {
-					try {
-						newModel = (IBakedModel) clazz.getConstructor(IBakedModel.class).newInstance(newModel);
-					} catch (Exception e) {
-						MessageUtilities.fatalErrorMessageToLog(Constants.modID, "ItemModel constructor problem for " + modelResourceLocation);
-						e.printStackTrace();
-					}
-				}
-				event.getModelRegistry().putObject(modelResourceLocation, newModel);
+				event.modelRegistry.putObject(modelResourceLocation, newModel);
 			}
 		}
 	}

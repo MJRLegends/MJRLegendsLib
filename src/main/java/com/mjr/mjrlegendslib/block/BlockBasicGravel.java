@@ -16,6 +16,6 @@ public class BlockBasicGravel extends BlockFalling {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Items.FLINT;
+		return Items.flint;
 	}
 }
