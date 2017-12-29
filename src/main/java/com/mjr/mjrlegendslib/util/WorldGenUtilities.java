@@ -19,8 +19,12 @@ public class WorldGenUtilities {
 		worldGen.generate(world, rand, new BlockPos(x, y, z));
 	}
 
-	public static void generateStructureWithRandom(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int randomAmount) {
-		generateStructure(worldGen, world, rand, pos.add(rand.nextInt(randomAmount), 0, rand.nextInt(randomAmount)));
+	public static void generateStructureWithRandom(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int randomAmountXZ) {
+		generateStructure(worldGen, world, rand, pos.add(rand.nextInt(randomAmountXZ), 0, rand.nextInt(randomAmountXZ)));
+	}
+	
+	public static void generateStructureWithRandom(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int randomAmountXZ, int randomAmountY) {
+		generateStructure(worldGen, world, rand, pos.add(rand.nextInt(randomAmountXZ), rand.nextInt(randomAmountY), rand.nextInt(randomAmountXZ)));
 	}
 
 	public static void generateLake(World world, Random rand, BlockPos pos, Block fluid, Block block) {
