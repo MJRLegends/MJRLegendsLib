@@ -24,7 +24,7 @@ import com.mjr.mjrlegendslib.Constants;
 import com.mjr.mjrlegendslib.client.model.ModelTransformWrapper;
 
 public class ClientUtilities {
-	public static void addExtraPlanetsVariants(String modID, String name, String... variants) {
+	public static void addVariants(String modID, String name, String... variants) {
 		@SuppressWarnings("deprecation")
 		Item itemBlockVariants = GameRegistry.findItem(modID, name);
 		ResourceLocation[] variants0 = new ResourceLocation[variants.length];
