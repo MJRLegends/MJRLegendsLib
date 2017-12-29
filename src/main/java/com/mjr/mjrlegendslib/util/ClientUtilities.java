@@ -19,7 +19,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
-import com.mjr.mjrlegendslib.Constants;
 import com.mjr.mjrlegendslib.client.model.ModelTransformWrapper;
 
 public class ClientUtilities {
