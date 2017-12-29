@@ -15,16 +15,13 @@ public class MJRLegendsLib
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-
 	}
 
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {
-
 	}
 }
