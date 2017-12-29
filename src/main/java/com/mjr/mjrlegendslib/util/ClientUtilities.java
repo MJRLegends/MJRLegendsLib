@@ -24,7 +24,7 @@ import com.mjr.mjrlegendslib.client.model.ModelTransformWrapper;
 
 public class ClientUtilities {
 	public static void addVariants(String modID, String name, String... variants) {
-		Item itemBlockVariants = GameRegistry.findItem(Constants.modID, name);
+		Item itemBlockVariants = GameRegistry.findItem(modID, name);
 		ResourceLocation[] variants0 = new ResourceLocation[variants.length];
 		for (int i = 0; i < variants.length; ++i) {
 			variants0[i] = new ResourceLocation(Constants.TEXTURE_PREFIX + variants[i]);
