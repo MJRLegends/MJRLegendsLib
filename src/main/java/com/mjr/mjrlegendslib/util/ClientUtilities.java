@@ -16,7 +16,6 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
@@ -24,9 +23,8 @@ import com.mjr.mjrlegendslib.Constants;
 import com.mjr.mjrlegendslib.client.model.ModelTransformWrapper;
 
 public class ClientUtilities {
-	public static void addExtraPlanetsVariants(String modID, String name, String... variants) {
-		@SuppressWarnings("deprecation")
-		Item itemBlockVariants = GameRegistry.findItem(modID, name);
+	public static void addVariants(String modID, String name, String... variants) {
+		Item itemBlockVariants = Item.REGISTRY.getObject(new ResourceLocation(modID, name));
 		ResourceLocation[] variants0 = new ResourceLocation[variants.length];
 		for (int i = 0; i < variants.length; ++i) {
 			variants0[i] = new ResourceLocation(modID + ":" + variants[i]);

@@ -34,18 +34,6 @@ public class AdminExecute implements ICommandSender
 	}
 
 	@Override
-	public void addChatMessage(ITextComponent p_145747_1_)
-	{
-		player.addChatMessage(p_145747_1_);
-	}
-
-	@Override
-	public boolean canCommandSenderUseCommand(int p_70003_1_, String p_70003_2_)
-	{
-		return true;
-	}
-
-	@Override
 	public BlockPos getPosition()
 	{
 		return player.getPosition();
@@ -85,5 +73,15 @@ public class AdminExecute implements ICommandSender
 	public MinecraftServer getServer()
 	{
 		return player.getServer();
+	}
+
+	@Override
+	public void sendMessage(ITextComponent component) {
+		player.sendMessage(component);
+	}
+
+	@Override
+	public boolean canUseCommand(int permLevel, String commandName) {
+		return true;
 	}
 }
