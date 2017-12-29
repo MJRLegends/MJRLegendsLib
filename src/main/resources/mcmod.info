@@ -1,0 +1,16 @@
+[
+{
+	"modid": "mjrlegendslib",
+	"name": "MJRLegendsLib",
+	"description": "A library for all of MJRLegends Mods.",
+	"version": "${version}",
+	"mcversion": "${mcversion}",
+	"url": "",
+	"updateUrl": "",
+	"authors": [
+	"MJRLegends"
+	],
+	"credits": "MJRLegends",
+	"logoFile": ""
+}
+]
