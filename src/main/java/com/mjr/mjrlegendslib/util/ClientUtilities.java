@@ -27,7 +27,7 @@ public class ClientUtilities {
 		Item itemBlockVariants = GameRegistry.findItem(modID, name);
 		ResourceLocation[] variants0 = new ResourceLocation[variants.length];
 		for (int i = 0; i < variants.length; ++i) {
-			variants0[i] = new ResourceLocation(Constants.TEXTURE_PREFIX + variants[i]);
+			variants0[i] = new ResourceLocation(modID + ":" + variants[i]);
 		}
 		ModelBakery.registerItemVariants(itemBlockVariants, variants0);
 	}
