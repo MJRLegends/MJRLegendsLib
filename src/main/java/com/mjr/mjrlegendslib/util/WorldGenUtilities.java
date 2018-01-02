@@ -55,7 +55,8 @@ public class WorldGenUtilities {
 
 		for (int i = -checkSize; i <= checkSize; ++i) {
 			for (int j = -checkSize; j <= checkSize; ++j) {
-				if (world.isAirBlock(position.add(i, -1, j)) && world.isAirBlock(position.add(i, -2, j)) || world.getBlockState(position.add(i, -1, j)).getBlock().getMaterial().isLiquid() && world.getBlockState(position.add(i, -2, j)).getBlock().getMaterial().isLiquid()) {
+				if (world.isAirBlock(position.add(i, -1, j)) && world.isAirBlock(position.add(i, -2, j)) || world.getBlockState(position.add(i, -1, j)).getBlock().getMaterial().isLiquid()
+						&& world.getBlockState(position.add(i, -2, j)).getBlock().getMaterial().isLiquid()) {
 					return false;
 				}
 			}

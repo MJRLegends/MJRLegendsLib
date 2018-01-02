@@ -2,8 +2,6 @@ package com.mjr.mjrlegendslib.world.gen;
 
 import java.util.Random;
 
-import com.mjr.mjrlegendslib.Constants;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -11,6 +9,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import com.mjr.mjrlegendslib.Constants;
 
 public class MapGenCaveGen extends MapGenBaseMeta {
 	public static final int BREAK_THROUGH_CHANCE = 25; // 1 in n chance
