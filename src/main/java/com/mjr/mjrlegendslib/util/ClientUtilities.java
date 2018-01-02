@@ -78,7 +78,7 @@ public class ClientUtilities {
 				IBakedModel newModel = model.bake(new OBJModel.OBJState(visibleGroups, false, parentState), DefaultVertexFormats.ITEM, spriteFunction);
 				if (clazz != null) {
 					try {
-						newModel = (IBakedModel) clazz.getConstructor(IBakedModel.class).newInstance(newModel);
+						newModel = clazz.getConstructor(IBakedModel.class).newInstance(newModel);
 					} catch (Exception e) {
 						MessageUtilities.fatalErrorMessageToLog(Constants.modID, "ItemModel constructor problem for " + modelResourceLocation);
 						e.printStackTrace();

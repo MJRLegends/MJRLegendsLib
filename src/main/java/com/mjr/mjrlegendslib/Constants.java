@@ -9,7 +9,7 @@ public class Constants {
 	public static final int LOCALBUILDVERSION = 1;
 
 	public static final String MCVERSION = "[1.11.2]";
-	
+
 	public static final String modVersion = "1.11.2" + "-" + LOCALMAJVERSION + "." + LOCALMINVERSION + "." + LOCALBUILDVERSION;
 
 	public static final String DEPENDENCIES_FORGE = "required-after:forge@[13.20.1.2513,); "; // Keep the space at the end!
