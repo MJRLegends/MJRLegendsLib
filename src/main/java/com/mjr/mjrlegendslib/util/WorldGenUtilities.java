@@ -22,7 +22,7 @@ public class WorldGenUtilities {
 	public static void generateStructureWithRandom(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int randomAmountXZ) {
 		generateStructure(worldGen, world, rand, pos.add(rand.nextInt(randomAmountXZ), 0, rand.nextInt(randomAmountXZ)));
 	}
-	
+
 	public static void generateStructureWithRandom(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int randomAmountXZ, int randomAmountY) {
 		generateStructure(worldGen, world, rand, pos.add(rand.nextInt(randomAmountXZ), rand.nextInt(randomAmountY), rand.nextInt(randomAmountXZ)));
 	}

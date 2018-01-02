@@ -2,8 +2,6 @@ package com.mjr.mjrlegendslib.world.gen;
 
 import java.util.Random;
 
-import com.mjr.mjrlegendslib.Constants;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -12,6 +10,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenBase;
+
+import com.mjr.mjrlegendslib.Constants;
 
 public class MapGenRavineGen extends MapGenBase {
 	private float[] field_75046_d = new float[1024];
