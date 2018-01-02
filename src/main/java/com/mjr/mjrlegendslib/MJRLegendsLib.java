@@ -8,8 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = Constants.modID, name = Constants.modName, version = Constants.modVersion, dependencies = Constants.DEPENDENCIES_FORGE + Constants.DEPENDENCIES_MODS)
-public class MJRLegendsLib
-{
+public class MJRLegendsLib {
 	@Instance(Constants.modID)
 	public static MJRLegendsLib instance;
 
