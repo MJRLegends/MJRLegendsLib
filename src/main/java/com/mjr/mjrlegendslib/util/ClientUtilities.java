@@ -52,6 +52,7 @@ public class ClientUtilities {
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, new ModelResourceLocation(texturePrefix + name, "inventory"));
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void replaceModelDefault(String modID, ModelBakeEvent event, String resLoc, String objLoc, List<String> visibleGroups, Class<? extends ModelTransformWrapper> clazz, IModelState parentState, String... variants) {
 		if (variants.length == 0) {
 			variants = new String[] { "inventory" };
