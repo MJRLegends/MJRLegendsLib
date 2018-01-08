@@ -9,18 +9,15 @@ import net.minecraft.item.ItemStack;
  * Credit micdoodle8, radfast
  */
 
-public interface IItemMeshDefinitionCustom extends ItemMeshDefinition
-{
-    static ItemMeshDefinition create(IItemMeshDefinitionCustom lambda)
-    { 
-        return lambda;
-    }
+public interface IItemMeshDefinitionCustom extends ItemMeshDefinition {
+	static ItemMeshDefinition create(IItemMeshDefinitionCustom lambda) {
+		return lambda;
+	}
 
-    ModelResourceLocation getLocation(ItemStack stack);
+	ModelResourceLocation getLocation(ItemStack stack);
 
-    @Override
-    default ModelResourceLocation getModelLocation(ItemStack stack)
-    {
-        return getLocation(stack);
-    }
+	@Override
+	default ModelResourceLocation getModelLocation(ItemStack stack) {
+		return getLocation(stack);
+	}
 }

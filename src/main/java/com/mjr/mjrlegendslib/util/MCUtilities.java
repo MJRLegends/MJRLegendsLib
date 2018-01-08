@@ -6,15 +6,15 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class MCUtilities {
 
-	public static boolean isClient(){
+	public static boolean isClient() {
 		return FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT;
 	}
-	
-	public static boolean isServer(){
+
+	public static boolean isServer() {
 		return FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER;
 	}
-	
-	public static Minecraft getMinecraft(){
+
+	public static Minecraft getMinecraft() {
 		return Minecraft.getMinecraft();
 	}
 }
