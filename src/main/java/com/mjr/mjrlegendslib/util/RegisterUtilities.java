@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -81,5 +82,9 @@ public class RegisterUtilities {
 
 	public static void registerOre(String name, @Nonnull ItemStack ore) {
 		OreDictionary.registerOre(name, ore);
+	}
+
+	public static void registerEventHandler(Object handler) {
+		MinecraftForge.EVENT_BUS.register(handler);
 	}
 }
