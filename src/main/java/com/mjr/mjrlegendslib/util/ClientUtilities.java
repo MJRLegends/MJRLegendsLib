@@ -3,22 +3,28 @@ package com.mjr.mjrlegendslib.util;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.IModelState;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
+import com.mjr.mjrlegendslib.client.model.IItemMeshDefinitionCustom;
 import com.mjr.mjrlegendslib.client.model.ModelTransformWrapper;
 
 public class ClientUtilities {
@@ -79,5 +85,27 @@ public class ClientUtilities {
 				event.modelRegistry.putObject(modelResourceLocation, newModel);
 			}
 		}
+	}
+
+	public static void registerOBJInstance(String modID) {
+		OBJLoader.instance.addDomain(modID);
+	}
+
+	public static void registerModel(Item item, int metadata, ModelResourceLocation model) {
+		ModelLoader.setCustomModelResourceLocation(item, metadata, model);
+	}
+
+	public static void registerFluidVariant(String fluid, Block fluidBlock) {
+		ModelResourceLocation location = new ModelResourceLocation(fluid, "fluid");
+		Item item = Item.getItemFromBlock(fluidBlock);
+		ModelBakery.registerItemVariants(item, new ResourceLocation(fluid));
+		ModelLoader.setCustomMeshDefinition(item, IItemMeshDefinitionCustom.create((ItemStack stack) -> location));
+		ModelLoader.setCustomStateMapper(fluidBlock, new StateMapperBase() {
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+				return location;
+			}
+		});
+
 	}
 }
