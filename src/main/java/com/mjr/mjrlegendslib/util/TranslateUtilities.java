@@ -3,9 +3,9 @@ package com.mjr.mjrlegendslib.util;
 import java.util.Arrays;
 import java.util.List;
 
-import com.mjr.mjrlegendslib.Constants;
-
 import net.minecraft.util.text.translation.I18n;
+
+import com.mjr.mjrlegendslib.Constants;
 
 @SuppressWarnings("deprecation")
 public class TranslateUtilities {
