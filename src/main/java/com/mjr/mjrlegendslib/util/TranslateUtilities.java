@@ -3,6 +3,8 @@ package com.mjr.mjrlegendslib.util;
 import java.util.Arrays;
 import java.util.List;
 
+import com.mjr.mjrlegendslib.Constants;
+
 import net.minecraft.util.text.translation.I18n;
 
 @SuppressWarnings("deprecation")
@@ -15,7 +17,7 @@ public class TranslateUtilities {
 		for (int i = 0; i < key.length(); ++i) {
 			Character c = key.charAt(i);
 			if (Character.isUpperCase(c)) {
-				System.err.println(ret);
+				MessageUtilities.fatalErrorMessageToLog(Constants.modID, ret);
 			}
 		}
 		return ret;
@@ -35,7 +37,7 @@ public class TranslateUtilities {
 		for (int i = 0; i < key.length(); ++i) {
 			Character c = key.charAt(i);
 			if (Character.isUpperCase(c)) {
-				System.err.println(ret);
+				MessageUtilities.fatalErrorMessageToLog(Constants.modID, ret);
 			}
 		}
 		return ret;
