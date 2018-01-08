@@ -3,14 +3,19 @@ package com.mjr.mjrlegendslib.util;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 import com.google.common.collect.ObjectArrays;
 
@@ -64,5 +69,21 @@ public class RegisterUtilities {
 	@SuppressWarnings("deprecation")
 	public static void setHarvestLevel(String modID, Block block, String toolClass, int level, int meta) {
 		block.setHarvestLevel(toolClass, level, block.getStateFromMeta(meta));
+	}
+
+	public static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String name) {
+		GameRegistry.registerTileEntity(tileEntityClass, name);
+	}
+
+	public static void registerOre(String name, Item ore) {
+		registerOre(name, new ItemStack(ore));
+	}
+
+	public static void registerOre(String name, Block ore) {
+		registerOre(name, new ItemStack(ore));
+	}
+
+	public static void registerOre(String name, @Nonnull ItemStack ore) {
+		OreDictionary.registerOre(name, ore);
 	}
 }
