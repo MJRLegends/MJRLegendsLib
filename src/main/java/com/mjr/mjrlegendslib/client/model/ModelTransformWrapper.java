@@ -5,6 +5,7 @@ import java.util.List;
 import javax.vecmath.Matrix4f;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
@@ -26,7 +27,7 @@ import org.apache.commons.lang3.tuple.Pair;
  * Class from Galacticraft Core
  * Credit micdoodle8, radfast
  */
-@SuppressWarnings({ "deprecation", "unchecked" })
+@SuppressWarnings("deprecation")
 public abstract class ModelTransformWrapper implements IFlexibleBakedModel, ISmartItemModel, ISmartBlockModel, IPerspectiveAwareModel {
 	private final IBakedModel iBakedModel;
 
@@ -48,12 +49,12 @@ public abstract class ModelTransformWrapper implements IFlexibleBakedModel, ISma
 	}
 
 	@Override
-	public List getFaceQuads(EnumFacing enumFacing) {
+	public List<BakedQuad> getFaceQuads(EnumFacing enumFacing) {
 		return iBakedModel.getFaceQuads(enumFacing);
 	}
 
 	@Override
-	public List getGeneralQuads() {
+	public List<BakedQuad> getGeneralQuads() {
 		return iBakedModel.getGeneralQuads();
 	}
 
