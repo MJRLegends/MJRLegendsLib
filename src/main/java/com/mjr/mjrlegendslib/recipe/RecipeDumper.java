@@ -127,6 +127,113 @@ public class RecipeDumper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}	
+	
+	public static void addShapedRecipeWithCondition(String modID, String conditonType, String conditonValue, ItemStack result, Object... components) {
+		setupDir();
+
+		// GameRegistry.addShapedRecipe(result, components);
+
+		Map<String, Object> json = new HashMap<>();
+
+		List<String> pattern = new ArrayList<>();
+		int i = 0;
+		while (i < components.length && components[i] instanceof String) {
+			pattern.add((String) components[i]);
+			i++;
+		}
+		json.put("pattern", pattern);
+
+		boolean isOreDict = false;
+		Map<String, Map<String, Object>> key = new HashMap<>();
+		Character curKey = null;
+		for (; i < components.length; i++) {
+			Object o = components[i];
+			if (o instanceof Character) {
+				if (curKey != null)
+					throw new IllegalArgumentException("Provided two char keys in a row");
+				curKey = (Character) o;
+			} else {
+				if (curKey == null)
+					throw new IllegalArgumentException("Providing object without a char key");
+				if (o instanceof String)
+					isOreDict = true;
+				key.put(Character.toString(curKey), serializeItem(o));
+				curKey = null;
+			}
+		}
+		json.put("key", key);
+		
+		List<Map<String, String>> conditions = new ArrayList<>();
+		Map<String, String> key2 = new HashMap<>();
+		key2.put("type", modID + ":" + conditonType);
+		key2.put("value", conditonValue);
+		conditions.add(key2);
+		json.put("conditions", conditions);
+	
+		json.put("type", isOreDict ? "forge:ore_shaped" : "minecraft:crafting_shaped");
+		json.put("result", serializeItem(result));
+
+		// names the json the same name as the output's registry name
+		// repeatedly adds _alt if a file already exists
+		// janky I know but it works
+		String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
+		File f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
+
+		while (f.exists()) {
+			suffix += "_alt";
+			f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
+		}
+
+		try (FileWriter w = new FileWriter(f)) {
+			GSON.toJson(json, w);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void addShapelessRecipeWithCondition(String modID, String conditonType, String conditonValue, ItemStack result, Object... components) {
+		setupDir();
+
+		// addShapelessRecipe(result, components);
+
+		Map<String, Object> json = new HashMap<>();
+
+		boolean isOreDict = false;
+		List<Map<String, Object>> ingredients = new ArrayList<>();
+		for (Object o : components) {
+			if (o instanceof String)
+				isOreDict = true;
+			ingredients.add(serializeItem(o));
+		}
+		json.put("ingredients", ingredients);
+
+		List<Map<String, String>> conditions = new ArrayList<>();
+		Map<String, String> key2 = new HashMap<>();
+		key2.put("type", modID + ":" + conditonType);
+		key2.put("value", conditonValue);
+		conditions.add(key2);
+		json.put("conditions", conditions);
+		
+		json.put("type", isOreDict ? "forge:ore_shapeless" : "minecraft:crafting_shapeless");
+		json.put("result", serializeItem(result));
+
+		// names the json the same name as the output's registry name
+		// repeatedly adds _alt if a file already exists
+		// janky I know but it works
+		String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
+		File f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
+
+		while (f.exists()) {
+			suffix += "_alt";
+			f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
+		}
+
+		try (FileWriter w = new FileWriter(f)) {
+			GSON.toJson(json, w);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static Map<String, Object> serializeItem(Object thing) {
