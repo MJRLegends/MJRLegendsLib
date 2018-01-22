@@ -3,27 +3,27 @@ package com.mjr.mjrlegendslib.world;
 import java.util.List;
 import java.util.Random;
 
+import com.mjr.mjrlegendslib.world.gen.MapGenBaseMeta;
+
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldEntitySpawner;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.ChunkGeneratorOverworld;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.ChunkProviderGenerate;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
-import com.mjr.mjrlegendslib.world.gen.MapGenBaseMeta;
-
-public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverworld {
+public abstract class ChunkProviderMultiBiomeNormal extends ChunkProviderGenerate {
 	private Random rand;
 	protected World worldObj;
 	private double[] depthBuffer;
-	private Biome[] biomesForGeneration;
+	private BiomeGenBase[] biomesForGeneration;
 	private NoiseGeneratorOctaves minLimitPerlinNoise;
 	private NoiseGeneratorOctaves maxLimitPerlinNoise;
 	private NoiseGeneratorOctaves mainPerlinNoise;
@@ -60,18 +60,18 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverwo
 
 		for (int j = -2; j <= 2; j++) {
 			for (int k = -2; k <= 2; k++) {
-				float f = 10.0F / MathHelper.sqrt(j * j + k * k + 0.2F);
+				float f = 10.0F / MathHelper.sqrt_float(j * j + k * k + 0.2F);
 				this.biomeWeights[j + 2 + (k + 2) * 5] = f;
 			}
 		}
 	}
 
 	@Override
-	public Chunk generateChunk(int chunkX, int chunkZ) {
+	public Chunk provideChunk(int chunkX, int chunkZ) {
 		this.rand.setSeed(chunkX * 341873128712L + chunkZ * 132897987541L);
 		ChunkPrimer chunkprimer = new ChunkPrimer();
 		this.setBlocksInChunk(chunkX, chunkZ, chunkprimer);
-		this.biomesForGeneration = this.worldObj.getBiomeProvider().getBiomes(this.biomesForGeneration, chunkX * 16, chunkZ * 16, 16, 16);
+		this.biomesForGeneration = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(this.biomesForGeneration, chunkX * 16, chunkZ * 16, 16, 16);
 		this.replaceBlocksForBiome(chunkX, chunkZ, chunkprimer, this.biomesForGeneration);
 
 		if (this.worldGenerators == null) {
@@ -79,7 +79,7 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverwo
 		}
 
 		for (MapGenBaseMeta generator : this.worldGenerators) {
-			generator.generate(this.worldObj, chunkX, chunkZ, chunkprimer);
+			generator.generate(this, this.worldObj, chunkX, chunkZ, chunkprimer);
 		}
 
 		this.onChunkProvide(chunkX, chunkZ, chunkprimer);
@@ -87,7 +87,7 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverwo
 		Chunk chunk = new Chunk(this.worldObj, chunkprimer, chunkX, chunkZ);
 		byte[] abyte = chunk.getBiomeArray();
 		for (int i = 0; i < abyte.length; ++i) {
-			abyte[i] = (byte) Biome.getIdForBiome(this.biomesForGeneration[i]);
+			abyte[i] = (byte) this.biomesForGeneration[i].biomeID;
 		}
 		chunk.generateSkylightMap();
 		return chunk;
@@ -95,7 +95,7 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverwo
 
 	@Override
 	public void setBlocksInChunk(int p_180518_1_, int p_180518_2_, ChunkPrimer p_180518_3_) {
-		this.biomesForGeneration = this.worldObj.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, p_180518_1_ * 4 - 2, p_180518_2_ * 4 - 2, 10, 10);
+		this.biomesForGeneration = this.worldObj.getWorldChunkManager().getBiomesForGeneration(this.biomesForGeneration, p_180518_1_ * 4 - 2, p_180518_2_ * 4 - 2, 10, 10);
 		this.generateHeightMap(p_180518_1_ * 4, 0, p_180518_2_ * 4);
 
 		for (int i = 0; i < 4; ++i) {
@@ -171,16 +171,16 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverwo
 				float f3 = 0.0F;
 				float f4 = 0.0F;
 				int i1 = 2;
-				Biome biomegenbase = this.biomesForGeneration[k + 2 + (l + 2) * 10];
+				BiomeGenBase biomegenbase = this.biomesForGeneration[k + 2 + (l + 2) * 10];
 
 				for (int j1 = -i1; j1 <= i1; ++j1) {
 					for (int k1 = -i1; k1 <= i1; ++k1) {
-						Biome biomegenbase1 = this.biomesForGeneration[k + j1 + 2 + (l + k1 + 2) * 10];
-						float f5 = 0.0F + biomegenbase1.getBaseHeight() * 1.0F;
-						float f6 = 0.0F + biomegenbase1.getHeightVariation() * 1.0F;
+						BiomeGenBase biomegenbase1 = this.biomesForGeneration[k + j1 + 2 + (l + k1 + 2) * 10];
+						float f5 = 0.0F + biomegenbase1.minHeight * 1.0F;
+						float f6 = 0.0F + biomegenbase1.maxHeight * 1.0F;
 						float f7 = this.biomeWeights[j1 + 2 + (k1 + 2) * 5] / (f5 + 2.0F);
 
-						if (biomegenbase1.getBaseHeight() > biomegenbase.getBaseHeight()) {
+						if (biomegenbase1.minHeight > biomegenbase.minHeight) {
 							f7 /= 2.0F;
 						}
 
@@ -236,7 +236,7 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverwo
 					double d2 = this.minLimitRegion[i] / 512.0F;
 					double d3 = this.maxLimitRegion[i] / 512.0F;
 					double d4 = (this.mainNoiseRegion[i] / 10.0D + 1.0D) / 2.0D;
-					double d5 = MathHelper.clampedLerp(d2, d3, d4) - d1;
+					double d5 = MathHelper.denormalizeClamp(d2, d3, d4) - d1;
 
 					if (l1 > 29) {
 						double d6 = (l1 - 29) / 3.0F;
@@ -253,43 +253,51 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverwo
 	/**
 	 * Replaces the stone that was placed in with blocks that match the biome
 	 */
-	public void replaceBlocksForBiome(int chunkX, int chunkZ, ChunkPrimer chunk, Biome[] biomeGen) {
+	@Override
+	public void replaceBlocksForBiome(int chunkX, int chunkZ, ChunkPrimer chunk, BiomeGenBase[] biomeGen) {
 		double d0 = 0.03125D;
-		this.depthBuffer = this.surfaceNoise.getRegion(this.depthBuffer, chunkX * 16, chunkZ * 16, 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
+		this.depthBuffer = this.surfaceNoise.func_151599_a(this.depthBuffer, chunkX * 16, chunkZ * 16, 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
 
 		for (int z = 0; z < 16; z++) {
 			for (int x = 0; x < 16; x++) {
-				Biome biomegenbase = biomeGen[x + z * 16];
+				BiomeGenBase biomegenbase = biomeGen[x + z * 16];
 				biomegenbase.genTerrainBlocks(this.worldObj, this.rand, chunk, chunkX * 16 + z, chunkZ * 16 + x, this.depthBuffer[x + z * 16]);
 			}
 		}
 	}
 
+	public Chunk loadChunk(int x, int z) {
+		return provideChunk(x, z);
+	}
+
 	@Override
-	public void populate(int chunkX, int chunkZ) {
+	public void populate(IChunkProvider chunkProvider, int chunkX, int chunkZ) {
 		BlockFalling.fallInstantly = true;
 		int x = chunkX * 16;
 		int z = chunkZ * 16;
 		BlockPos pos = new BlockPos(x, 0, z);
-		Biome biome = this.worldObj.getBiome(pos.add(16, 0, 16));
+		BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(pos.add(16, 0, 16));
 		this.rand.setSeed(this.worldObj.getSeed());
 		long var7 = this.rand.nextLong() / 2L * 2L + 1L;
 		long var9 = this.rand.nextLong() / 2L * 2L + 1L;
 		this.rand.setSeed(chunkX * var7 + chunkZ * var9 ^ this.worldObj.getSeed());
-		biome.decorate(this.worldObj, this.rand, pos);
-		decoratePlanet(this.worldObj, this.rand, x, z);
-		WorldEntitySpawner.performWorldGenSpawning(this.worldObj, biome, x + 8, z + 8, 16, 16, this.rand);
+		biomegenbase.decorate(this.worldObj, this.rand, pos);
+		this.decoratePlanet(this.worldObj, this.rand, x, z);
 		BlockFalling.fallInstantly = false;
 	}
 
-	@Override
 	public boolean generateStructures(Chunk chunkIn, int x, int z) {
 		return false;
 	}
 
 	@Override
-	public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
-		Biome biomegenbase = this.worldObj.getBiome(pos);
+	public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position) {
+		return null;
+	}
+
+	@Override
+	public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+		BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(pos);
 		return biomegenbase.getSpawnableList(creatureType);
 	}
 

@@ -4,19 +4,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -24,9 +22,9 @@ public abstract class BlockBasicExplosion extends Block {
 	public static final PropertyBool EXPLODE = PropertyBool.create("explode");
 
 	public BlockBasicExplosion() {
-		super(Material.TNT);
+		super(Material.tnt);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(EXPLODE, Boolean.valueOf(false)));
-		this.setCreativeTab(CreativeTabs.REDSTONE);
+		this.setCreativeTab(CreativeTabs.tabRedstone);
 	}
 
 	@Override
@@ -40,7 +38,7 @@ public abstract class BlockBasicExplosion extends Block {
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
 		if (worldIn.isBlockPowered(pos)) {
 			this.onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, Boolean.valueOf(true)));
 			worldIn.setBlockToAir(pos);
@@ -56,23 +54,25 @@ public abstract class BlockBasicExplosion extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		ItemStack itemstack = playerIn.getHeldItem(hand);
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (playerIn.inventory.getCurrentItem() != null) {
+			Item item = playerIn.inventory.getCurrentItem().getItem();
 
-		if (!itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
-			this.explode(worldIn, pos, state.withProperty(EXPLODE, Boolean.valueOf(true)), playerIn);
-			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
+			if (item == Items.flint_and_steel || item == Items.fire_charge) {
+				this.explode(worldIn, pos, state.withProperty(EXPLODE, Boolean.valueOf(true)), playerIn);
+				worldIn.setBlockToAir(pos);
 
-			if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
-				itemstack.damageItem(1, playerIn);
-			} else if (!playerIn.capabilities.isCreativeMode) {
-				itemstack.shrink(1);
+				if (item == Items.flint_and_steel) {
+					playerIn.inventory.getCurrentItem().damageItem(1, playerIn);
+				} else if (!playerIn.capabilities.isCreativeMode) {
+					--playerIn.inventory.getCurrentItem().stackSize;
+				}
+
+				return true;
 			}
-
-			return true;
-		} else {
-			return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
 		}
+
+		return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
 	}
 
 	/**
@@ -115,8 +115,8 @@ public abstract class BlockBasicExplosion extends Block {
 	}
 
 	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { EXPLODE });
+	protected BlockState createBlockState() {
+		return new BlockState(this, new IProperty[] { EXPLODE });
 	}
 
 	@Override

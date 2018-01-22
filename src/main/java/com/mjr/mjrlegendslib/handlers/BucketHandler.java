@@ -7,7 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
@@ -23,22 +23,19 @@ public class BucketHandler {
 
 	@SubscribeEvent
 	public void onBucketFill(FillBucketEvent event) {
-		RayTraceResult pos = event.getTarget();
-		if (pos == null) {
-			return;
-		}
 
-		ItemStack ret = fillCustomBucket(event.getWorld(), pos);
+		MovingObjectPosition pos = event.target;
+		ItemStack ret = fillCustomBucket(event.world, pos);
 
 		if (ret == null) {
 			return;
 		}
 
-		event.setFilledBucket(ret);
+		event.result = ret;
 		event.setResult(Result.ALLOW);
 	}
 
-	private ItemStack fillCustomBucket(World world, RayTraceResult position) {
+	private ItemStack fillCustomBucket(World world, MovingObjectPosition position) {
 		IBlockState state = world.getBlockState(position.getBlockPos());
 		Block block = state.getBlock();
 

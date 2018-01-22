@@ -5,7 +5,7 @@ import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
@@ -25,7 +25,7 @@ public abstract class FluidBasicBlock extends BlockFluidClassic {
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean canDisplace(IBlockAccess world, BlockPos pos) {
-		if (world.getBlockState(pos).getBlock().getMaterial(world.getBlockState(pos)).isLiquid()) {
+		if (world.getBlockState(pos).getBlock().getMaterial().isLiquid()) {
 			return false;
 		}
 
@@ -35,7 +35,7 @@ public abstract class FluidBasicBlock extends BlockFluidClassic {
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean displaceIfPossible(World world, BlockPos pos) {
-		if (world.getBlockState(pos).getBlock().getMaterial(world.getBlockState(pos)).isLiquid()) {
+		if (world.getBlockState(pos).getBlock().getMaterial().isLiquid()) {
 			return false;
 		}
 
@@ -44,8 +44,8 @@ public abstract class FluidBasicBlock extends BlockFluidClassic {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		super.randomDisplayTick(stateIn, worldIn, pos, rand);
+	public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+		super.randomDisplayTick(worldIn, pos, state, rand);
 	}
 
 	@Override
