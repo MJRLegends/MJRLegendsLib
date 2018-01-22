@@ -1,5 +1,7 @@
 package com.mjr.mjrlegendslib.block;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -11,8 +13,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -40,7 +42,7 @@ public abstract class BlockBasicExplosion extends Block {
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
 		if (worldIn.isBlockPowered(pos)) {
 			this.onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, Boolean.valueOf(true)));
 			worldIn.setBlockToAir(pos);
@@ -56,23 +58,25 @@ public abstract class BlockBasicExplosion extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		ItemStack itemstack = playerIn.getHeldItem(hand);
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (playerIn.inventory.getCurrentItem() != null) {
+			Item item = playerIn.inventory.getCurrentItem().getItem();
 
-		if (!itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
-			this.explode(worldIn, pos, state.withProperty(EXPLODE, Boolean.valueOf(true)), playerIn);
-			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
+			if (item == Items.FLINT_AND_STEEL || item == Items.FIRE_CHARGE) {
+				this.explode(worldIn, pos, state.withProperty(EXPLODE, Boolean.valueOf(true)), playerIn);
+				worldIn.setBlockToAir(pos);
 
-			if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
-				itemstack.damageItem(1, playerIn);
-			} else if (!playerIn.capabilities.isCreativeMode) {
-				itemstack.shrink(1);
+				if (item == Items.FLINT_AND_STEEL) {
+					playerIn.inventory.getCurrentItem().damageItem(1, playerIn);
+				} else if (!playerIn.capabilities.isCreativeMode) {
+					--playerIn.inventory.getCurrentItem().stackSize;
+				}
+
+				return true;
 			}
-
-			return true;
-		} else {
-			return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
 		}
+
+		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
 	}
 
 	/**

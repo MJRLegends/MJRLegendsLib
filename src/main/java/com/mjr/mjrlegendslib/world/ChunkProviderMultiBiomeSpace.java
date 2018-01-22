@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.ChunkGeneratorOverworld;
+import net.minecraft.world.gen.ChunkProviderOverworld;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
@@ -23,7 +23,7 @@ import com.mjr.mjrlegendslib.world.gen.MapGenBaseMeta;
  * Class from Galacticraft Core
  * Credit micdoodle8, radfast
  */
-public abstract class ChunkProviderMultiBiomeSpace extends ChunkGeneratorOverworld {
+public abstract class ChunkProviderMultiBiomeSpace extends ChunkProviderOverworld {
 	protected Random rand;
 	protected World worldObj;
 	private double[] depthBuffer;
@@ -41,6 +41,8 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkGeneratorOverwor
 	double[] minLimitRegion;
 	double[] maxLimitRegion;
 	double[] depthRegion;
+
+	private final int CRATER_PROB = this.getCraterProbability();
 
 	protected IBlockState stoneBlock;
 	protected IBlockState waterBlock;
@@ -70,14 +72,14 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkGeneratorOverwor
 
 		for (int j = -2; j <= 2; j++) {
 			for (int k = -2; k <= 2; k++) {
-				float f = 10.0F / MathHelper.sqrt(j * j + k * k + 0.2F);
+				float f = 10.0F / MathHelper.sqrt_float(j * j + k * k + 0.2F);
 				this.biomeWeights[j + 2 + (k + 2) * 5] = f;
 			}
 		}
 	}
 
 	@Override
-	public Chunk generateChunk(int chunkX, int chunkZ) {
+	public Chunk provideChunk(int chunkX, int chunkZ) {
 		this.rand.setSeed(chunkX * 341873128712L + chunkZ * 132897987541L);
 		ChunkPrimer chunkprimer = new ChunkPrimer();
 		this.setBlocksInChunk(chunkX, chunkZ, chunkprimer);
@@ -93,6 +95,7 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkGeneratorOverwor
 		}
 
 		this.onChunkProvide(chunkX, chunkZ, chunkprimer);
+		// this.createCraters(chunkX, chunkX, chunkprimer);
 
 		Chunk chunk = new Chunk(this.worldObj, chunkprimer, chunkX, chunkZ);
 		byte[] abyte = chunk.getBiomeArray();
@@ -248,7 +251,7 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkGeneratorOverwor
 					double d2 = this.minLimitRegion[i] / 512.0F;
 					double d3 = this.maxLimitRegion[i] / 512.0F;
 					double d4 = (this.mainNoiseRegion[i] / 10.0D + 1.0D) / 2.0D;
-					double d5 = MathHelper.clampedLerp(d2, d3, d4) - d1;
+					double d5 = MathHelper.denormalizeClamp(d2, d3, d4) - d1;
 
 					if (l1 > 29) {
 						double d6 = (l1 - 29) / 3.0F;
@@ -277,6 +280,10 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkGeneratorOverwor
 		}
 	}
 
+	public Chunk loadChunk(int x, int z) {
+		return provideChunk(x, z);
+	}
+
 	@Override
 	public void populate(int x, int z) {
 		BlockFalling.fallInstantly = true;
@@ -296,6 +303,11 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkGeneratorOverwor
 	@Override
 	public boolean generateStructures(Chunk chunkIn, int x, int z) {
 		return false;
+	}
+
+	@Override
+	public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position) {
+		return null;
 	}
 
 	@Override
