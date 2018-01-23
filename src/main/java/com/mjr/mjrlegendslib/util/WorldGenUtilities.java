@@ -18,13 +18,31 @@ public class WorldGenUtilities {
 		int y = world.getTopSolidOrLiquidBlock(new BlockPos(x, 0, z)).getY();
 		worldGen.generate(world, rand, new BlockPos(x, y, z));
 	}
+	
+	public static void generateStructureWithRandomY(WorldGenerator worldGen, World world, Random rand, BlockPos pos) {
+		int x = pos.getX() + 8;
+		int z = pos.getZ() + 8;
+		generateStructureWithSetY(worldGen, world, rand, new BlockPos(x, pos.getY(), z), pos.getY());
+	}
+	
+	public static void generateStructureWithSetY(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int y) {
+		int x = pos.getX() + 8;
+		int z = pos.getZ() + 8;
+		worldGen.generate(world, rand, new BlockPos(x, y, z));
+	}
+	
+	public static void generateStructureWithRangeY(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int minY, int maxY) {
+		int x = pos.getX() + 8;
+		int z = pos.getZ() + 8;
+		worldGen.generate(world, rand, new BlockPos(x, rand.nextInt(maxY) + minY, z));
+	}
 
 	public static void generateStructureWithRandom(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int randomAmountXZ) {
 		generateStructure(worldGen, world, rand, pos.add(rand.nextInt(randomAmountXZ), 0, rand.nextInt(randomAmountXZ)));
 	}
 
 	public static void generateStructureWithRandom(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int randomAmountXZ, int randomAmountY) {
-		generateStructure(worldGen, world, rand, pos.add(rand.nextInt(randomAmountXZ), rand.nextInt(randomAmountY), rand.nextInt(randomAmountXZ)));
+		generateStructureWithRandomY(worldGen, world, rand, pos.add(rand.nextInt(randomAmountXZ), rand.nextInt(randomAmountY), rand.nextInt(randomAmountXZ)));
 	}
 
 	public static void generateLake(World world, Random rand, BlockPos pos, Block fluid, Block block) {
