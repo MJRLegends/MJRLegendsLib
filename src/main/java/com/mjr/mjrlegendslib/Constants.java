@@ -6,7 +6,7 @@ public class Constants {
 
 	public static final int LOCALMAJVERSION = 1;
 	public static final int LOCALMINVERSION = 0;
-	public static final int LOCALBUILDVERSION = 5;
+	public static final int LOCALBUILDVERSION = 6;
 
 	public static final String MCVERSION = "[1.12.2]";
 
@@ -14,6 +14,8 @@ public class Constants {
 
 	public static final String DEPENDENCIES_FORGE = "required-after:forge@[14.23.1.2555,); "; // Keep the space at the end!
 	public static final String DEPENDENCIES_MODS = " "; // Keep the space at the end!
+
+	public static final String CERTIFICATEFINGERPRINT = "b02331787272ec3515ebe63ecdeea0d746653468";
 
 	public static final String ASSET_PREFIX = modID;
 	public static final String TEXTURE_PREFIX = ASSET_PREFIX + ":";
