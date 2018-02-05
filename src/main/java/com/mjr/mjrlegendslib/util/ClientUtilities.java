@@ -7,12 +7,15 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.IModelState;
@@ -20,6 +23,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.google.common.base.Function;
@@ -55,6 +61,26 @@ public class ClientUtilities {
 
 	public static void registerItemJson(String texturePrefix, Item item, int meta, String name) {
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, new ModelResourceLocation(texturePrefix + name, "inventory"));
+	}
+
+	public static void registerItemJson(String texturePrefix, Item item, String name) {
+		registerItemJson(texturePrefix, item, 0, name);
+	}
+
+	public static void registerItemJson(String texturePrefix, ItemStack item, String name) {
+		registerItemJson(texturePrefix, item.getItem(), item.getMetadata(), name);
+	}
+
+	public static void registerItemJson(String texturePrefix, List<Item> items, String name) {
+		for (Item item : items) {
+			registerItemJson(texturePrefix, item, name);
+		}
+	}
+
+	public static void registerItemJson(String texturePrefix, List<Item> items) {
+		for (Item item : items) {
+			registerItemJson(texturePrefix, item, item.getUnlocalizedName().substring(5));
+		}
 	}
 
 	public static void replaceModelDefault(String modID, ModelBakeEvent event, String resLoc, String objLoc, List<String> visibleGroups, Class<? extends ModelTransformWrapper> clazz, IModelState parentState, String... variants) {
@@ -95,6 +121,17 @@ public class ClientUtilities {
 		ModelLoader.setCustomModelResourceLocation(item, metadata, model);
 	}
 
+	public static void registerCustomModel(String texturePrefix, Item item, String name) {
+		ModelResourceLocation modelResourceLocation = new ModelResourceLocation(texturePrefix + name, "inventory");
+		registerModel(item, 0, modelResourceLocation);
+	}
+
+	public static void registerCustomModel(String texturePrefix, Block block, String name) {
+		Item item = Item.getItemFromBlock(block);
+		ModelResourceLocation modelResourceLocation = new ModelResourceLocation(texturePrefix + name, "inventory");
+		registerModel(item, 0, modelResourceLocation);
+	}
+
 	public static void registerFluidVariant(String fluid, Block fluidBlock) {
 		ModelResourceLocation location = new ModelResourceLocation(fluid, "fluid");
 		Item item = Item.getItemFromBlock(fluidBlock);
@@ -107,5 +144,13 @@ public class ClientUtilities {
 			}
 		});
 
+	}
+
+	public static <T extends TileEntity> void registerTileEntityRenderer(Class<T> tileEntityClass, TileEntitySpecialRenderer<? super T> specialRenderer) {
+		ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, specialRenderer);
+	}
+
+	public static <T extends Entity> void registerEntityRenderer(Class<T> entityClass, IRenderFactory<? super T> renderFactory) {
+		RenderingRegistry.registerEntityRenderingHandler(entityClass, renderFactory);
 	}
 }
