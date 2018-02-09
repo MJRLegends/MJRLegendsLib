@@ -1,5 +1,8 @@
 package com.mjr.mjrlegendslib.util;
 
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameData;
@@ -37,7 +40,7 @@ public class ItemUtilities {
 				MessageUtilities.infoMessageToLog(Constants.modID, caller + ": unrecognised item name '" + s + "'.");
 			}
 			return null;
-		}		
+		}
 		try {
 			Integer.parseInt(name);
 			String bName = (String) GameData.getItemRegistry().getNameForObject(item).toString();
@@ -48,5 +51,36 @@ public class ItemUtilities {
 		}
 
 		return new ItemTuple(item, meta);
+	}
+
+	public static Item getRandomItemFromList(List<Item> items) {
+		Random rand = new Random();
+		return items.get(rand.nextInt(items.size()));
+	}
+	
+	public static ItemStack getRandomItemStackFromItemList(List<Item> items) {
+		Random rand = new Random();
+		return new ItemStack(items.get(rand.nextInt(items.size())), 1, 0);
+	}
+
+	public static ItemStack getRandomItemStackMetaFromItemList(List<Item> items) {
+		Random rand = new Random();
+		int temp = rand.nextInt(items.size());
+		return new ItemStack(items.get(temp), 1, temp);
+	}
+	
+	public static ItemStack getRandomItemStackFromItemStackList(List<ItemStack> items) {
+		Random rand = new Random();
+		return items.get(rand.nextInt(items.size()));
+	}
+
+	public static ItemStack getRandomMetaFromItem(Item item) {
+		Random rand = new Random();
+		return new ItemStack(item, 1, rand.nextInt(item.getMaxDamage()));
+	}
+
+	public static ItemStack getRandomMetaFromItem(ItemStack item) {
+		Random rand = new Random();
+		return new ItemStack(item.getItem(), 1, rand.nextInt(item.getItem().getMaxDamage()));
 	}
 }
