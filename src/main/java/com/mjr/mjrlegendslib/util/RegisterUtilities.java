@@ -9,6 +9,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -67,5 +68,13 @@ public class RegisterUtilities {
 
 	public static void registerEventHandler(Object handler) {
 		MinecraftForge.EVENT_BUS.register(handler);
+	}
+	
+	public static void registerWorldGenerator(IWorldGenerator generator, int modGenerationWeight) {
+		GameRegistry.registerWorldGenerator(generator, modGenerationWeight);
+	}
+	
+	public static void registerWorldGenerator(IWorldGenerator generator) {
+		GameRegistry.registerWorldGenerator(generator, 0);
 	}
 }
