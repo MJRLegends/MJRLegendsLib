@@ -11,7 +11,7 @@ public class TranslateUtilities {
 	// Credit micdoodle8, radfast
 	
 	public static String translate(String key, boolean logError) {
-		String result = I18n.translateToLocal(key);
+		String result = StatCollector.translateToLocal(key);
 		int comment = result.indexOf('#');
 		String ret = (comment > 0) ? result.substring(0, comment).trim() : result;
 		for (int i = 0; i < key.length(); ++i) {

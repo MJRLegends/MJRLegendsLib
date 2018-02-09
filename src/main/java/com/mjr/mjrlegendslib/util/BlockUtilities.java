@@ -37,7 +37,7 @@ public class BlockUtilities {
 
 		Block block = Block.getBlockFromName(name);
 		if (block == null) {
-			Item item = (Item) Item.REGISTRY.getObject(new ResourceLocation(name));
+			Item item = (Item) Item.itemRegistry.getObject(new ResourceLocation(name));
 			if (item instanceof ItemBlock) {
 				block = ((ItemBlock) item).block;
 			}
@@ -56,7 +56,7 @@ public class BlockUtilities {
 			}
 		} catch (NumberFormatException ex) {
 		}
-		if (Blocks.AIR == block) {
+		if (Blocks.air == block) {
 			if (logging) {
 				MessageUtilities.infoMessageToLog(Constants.modID, caller + ": not a good idea to specify air, skipping that!");
 			}
