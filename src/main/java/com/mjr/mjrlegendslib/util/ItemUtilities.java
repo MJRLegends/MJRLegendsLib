@@ -5,7 +5,6 @@ import java.util.Random;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameData;
 
 import com.mjr.mjrlegendslib.Constants;
 import com.mjr.mjrlegendslib.item.ItemTuple;
@@ -43,7 +42,7 @@ public class ItemUtilities {
 		}
 		try {
 			Integer.parseInt(name);
-			String bName = (String) GameData.getItemRegistry().getNameForObject(item).toString();
+			String bName = (String) Item.REGISTRY.getNameForObject(item).toString();
 			if (logging) {
 				MessageUtilities.infoMessageToLog(Constants.modID, caller + ": the use of numeric IDs is discouraged, please use " + bName + " instead of " + name);
 			}
@@ -57,7 +56,7 @@ public class ItemUtilities {
 		Random rand = new Random();
 		return items.get(rand.nextInt(items.size()));
 	}
-	
+
 	public static ItemStack getRandomItemStackFromItemList(List<Item> items) {
 		Random rand = new Random();
 		return new ItemStack(items.get(rand.nextInt(items.size())), 1, 0);
@@ -68,7 +67,7 @@ public class ItemUtilities {
 		int temp = rand.nextInt(items.size());
 		return new ItemStack(items.get(temp), 1, temp);
 	}
-	
+
 	public static ItemStack getRandomItemStackFromItemStackList(List<ItemStack> items) {
 		Random rand = new Random();
 		return items.get(rand.nextInt(items.size()));

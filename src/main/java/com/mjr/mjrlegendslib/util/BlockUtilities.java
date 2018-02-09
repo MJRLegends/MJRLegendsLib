@@ -6,7 +6,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameData;
 
 import com.mjr.mjrlegendslib.Constants;
 import com.mjr.mjrlegendslib.block.BlockTuple;
@@ -39,7 +38,7 @@ public class BlockUtilities {
 		if (block == null) {
 			Item item = (Item) Item.REGISTRY.getObject(new ResourceLocation(name));
 			if (item instanceof ItemBlock) {
-				block = ((ItemBlock) item).block;
+				block = ((ItemBlock) item).getBlock();
 			}
 			if (block == null) {
 				if (logging) {
@@ -50,7 +49,7 @@ public class BlockUtilities {
 		}
 		try {
 			Integer.parseInt(name);
-			String bName = (String) GameData.getBlockRegistry().getNameForObject(block).toString();
+			String bName = (String) Block.REGISTRY.getNameForObject(block).toString();
 			if (logging) {
 				MessageUtilities.infoMessageToLog(Constants.modID, caller + ": the use of numeric IDs is discouraged, please use " + bName + " instead of " + name);
 			}
