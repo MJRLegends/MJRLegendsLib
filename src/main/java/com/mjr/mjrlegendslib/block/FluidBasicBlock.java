@@ -2,6 +2,8 @@ package com.mjr.mjrlegendslib.block;
 
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -46,6 +48,12 @@ public abstract class FluidBasicBlock extends BlockFluidClassic {
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		super.randomDisplayTick(stateIn, worldIn, pos, rand);
+	}
+
+	@Override
+	@Nullable
+	public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos pos, IBlockState state, Entity entity, double yToTest, Material material, boolean testingHead) {
+		return true;
 	}
 
 	@Override
