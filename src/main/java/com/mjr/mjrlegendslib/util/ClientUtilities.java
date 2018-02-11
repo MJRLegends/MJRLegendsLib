@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -61,6 +62,18 @@ public class ClientUtilities {
 		registerItemJson(texturePrefix, item, meta, item.getUnlocalizedName().substring(5));
 	}
 
+	public static void registerItemJson(String texturePrefix, Item item, String[] items) {
+		for (int i = 0; i < items.length; i++) {
+			registerItemJson(texturePrefix, item, i, items[i]);
+		}
+	}
+
+	public static void registerItemJson(String texturePrefix, Item item, String prefix, String[] items) {
+		for (int i = 0; i < items.length; i++) {
+			registerItemJson(texturePrefix, item, i, prefix + items[i]);
+		}
+	}
+
 	public static void registerItemJson(String texturePrefix, Item item, int meta, String name) {
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, new ModelResourceLocation(texturePrefix + name, "inventory"));
 	}
@@ -85,7 +98,26 @@ public class ClientUtilities {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
+	public static void replaceModelDefaultBlock(String modID, ModelBakeEvent event, String loc, List<String> visibleGroups, Class<? extends ModelTransformWrapper> clazz, String... variants) {
+		replaceModelDefault(modID, event, loc, "block/" + loc + ".obj", visibleGroups, clazz, TRSRTransformation.identity(), variants);
+	}
+
+	public static void replaceModelDefaultBlock(String modID, ModelBakeEvent event, String resLoc, String objLoc, List<String> visibleGroups, Class<? extends ModelTransformWrapper> clazz, String... variants) {
+		replaceModelDefault(modID, event, resLoc, "block/" + objLoc, visibleGroups, clazz, TRSRTransformation.identity(), variants);
+	}
+
+	public static void replaceModelDefaultBlock(String modID, ModelBakeEvent event, String resLoc, String objLoc, List<String> visibleGroups, Class<? extends ModelTransformWrapper> clazz, IModelState parentState, String... variants) {
+		replaceModelDefault(modID, event, resLoc, "block/" + objLoc, visibleGroups, clazz, parentState, variants);
+	}
+
+	public static void replaceModelDefault(String modID, ModelBakeEvent event, String loc, List<String> visibleGroups, Class<? extends ModelTransformWrapper> clazz, String... variants) {
+		replaceModelDefault(modID, event, loc, loc + ".obj", visibleGroups, clazz, TRSRTransformation.identity(), variants);
+	}
+
+	public static void replaceModelDefault(String modID, ModelBakeEvent event, String resLoc, String objLoc, List<String> visibleGroups, Class<? extends ModelTransformWrapper> clazz, String... variants) {
+		replaceModelDefault(modID, event, resLoc, objLoc, visibleGroups, clazz, TRSRTransformation.identity(), variants);
+	}
+
 	public static void replaceModelDefault(String modID, ModelBakeEvent event, String resLoc, String objLoc, List<String> visibleGroups, Class<? extends ModelTransformWrapper> clazz, IModelState parentState, String... variants) {
 		if (variants.length == 0) {
 			variants = new String[] { "inventory" };
@@ -130,15 +162,42 @@ public class ClientUtilities {
 		ModelLoader.setCustomModelResourceLocation(item, metadata, model);
 	}
 
-	public static void registerCustomModel(String texturePrefix, Item item, String name) {
-		ModelResourceLocation modelResourceLocation = new ModelResourceLocation(texturePrefix + name, "inventory");
-		registerModel(item, 0, modelResourceLocation);
+	public static void registerModel(Block block, int metadata, ModelResourceLocation model) {
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), metadata, model);
 	}
 
-	public static void registerCustomModel(String texturePrefix, Block block, String name) {
-		Item item = Item.getItemFromBlock(block);
+	public static void registerModel(String texturePrefix, Block block, int meta, String name) {
 		ModelResourceLocation modelResourceLocation = new ModelResourceLocation(texturePrefix + name, "inventory");
-		registerModel(item, 0, modelResourceLocation);
+		registerModel(block, meta, modelResourceLocation);
+	}
+
+	public static void registerModel(String texturePrefix, Item item, int meta, String name) {
+		ModelResourceLocation modelResourceLocation = new ModelResourceLocation(texturePrefix + name, "inventory");
+		registerModel(item, meta, modelResourceLocation);
+	}
+
+	public static void registerModel(String texturePrefix, Item item, String name) {
+		registerModel(texturePrefix, item, 0, name);
+	}
+
+	public static void registerModel(String texturePrefix, Block block, String name) {
+		registerModel(texturePrefix, block, 0, name);
+	}
+
+	public static void registerModel(String texturePrefix, Item item, String name, int amountOfItems) {
+		ModelResourceLocation modelResourceLocation;
+		for (int i = 0; i < amountOfItems; ++i) {
+			modelResourceLocation = new ModelResourceLocation(texturePrefix + name, "inventory");
+			registerModel(item, i, modelResourceLocation);
+		}
+	}
+
+	public static void registerModel(String texturePrefix, Block block, String name, int amountOfItems) {
+		ModelResourceLocation modelResourceLocation;
+		for (int i = 0; i < amountOfItems; ++i) {
+			modelResourceLocation = new ModelResourceLocation(texturePrefix + name, "inventory");
+			registerModel(block, i, modelResourceLocation);
+		}
 	}
 
 	public static void registerFluidVariant(String fluid, Block fluidBlock) {	
@@ -162,8 +221,13 @@ public class ClientUtilities {
 	public static <T extends Entity> void registerEntityRenderer(Class<T> entityClass, IRenderFactory<? super T> renderFactory) {
 		RenderingRegistry.registerEntityRenderingHandler(entityClass, renderFactory);
 	}
-	
-	 public static void registerKeyBinding(KeyBinding key){
-		 ClientRegistry.registerKeyBinding(key);
-	 }
+
+	public static void registerKeyBinding(KeyBinding key) {
+		ClientRegistry.registerKeyBinding(key);
+	}
+
+	public static void registerTexture(String texturePrefix, TextureStitchEvent.Pre event, String texture) {
+		event.getMap().registerSprite(new ResourceLocation(texturePrefix + "model/" + texture));
+	}
+
 }
