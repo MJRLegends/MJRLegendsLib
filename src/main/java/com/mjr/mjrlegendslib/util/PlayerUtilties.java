@@ -91,7 +91,7 @@ public class PlayerUtilties {
 	
 	public static boolean isPlayerOnlineByUsername(String username){
 		boolean online = false;
-		for (String player : MCUtilities.getServer().getAllUsernames())
+		for (String player : MCUtilities.getServer().getOnlinePlayerNames())
 			if(player.equalsIgnoreCase(player))
 				online = true;
 		return online;	
@@ -99,7 +99,7 @@ public class PlayerUtilties {
 	
 	public static boolean isPlayerOnlineByUUID(UUID UUID){
 		boolean online = false;
-		for (String player : MCUtilities.getServer().getAllUsernames())
+		for (String player : MCUtilities.getServer().getOnlinePlayerNames())
 			if(compareUUIDToUsername(UUID, player));
 				online = true;
 		return online;	
@@ -107,7 +107,7 @@ public class PlayerUtilties {
 	
 	public static boolean isPlayerOnlineByUUID(String UUID){
 		boolean online = false;
-		for (String player : MCUtilities.getServer().getAllUsernames())
+		for (String player : MCUtilities.getServer().getOnlinePlayerNames())
 			if(compareUUIDToUsername(UUID, player));
 				online = true;
 		return online;	
