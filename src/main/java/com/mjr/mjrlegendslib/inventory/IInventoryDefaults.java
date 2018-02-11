@@ -3,6 +3,8 @@ package com.mjr.mjrlegendslib.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 
 public interface IInventoryDefaults extends IInventory {
 	@Override
@@ -40,6 +42,6 @@ public interface IInventoryDefaults extends IInventory {
 
 	@Override
 	public default ITextComponent getDisplayName() {
-		return null;
+		return (this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
 	}
 }
