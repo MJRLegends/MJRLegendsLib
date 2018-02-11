@@ -22,6 +22,6 @@ public class PlayerUtilties {
 	}
 
 	public static void sendMessage(EntityPlayer player, String message) {
-		player.addChatMessage(new TextComponentString(message));
+		player.sendMessage(new TextComponentString(message));
 	}
 }
