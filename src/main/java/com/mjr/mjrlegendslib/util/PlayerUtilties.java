@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class PlayerUtilties {
@@ -22,6 +22,6 @@ public class PlayerUtilties {
 	}
 
 	public static void sendMessage(EntityPlayer player, String message) {
-		player.addChatMessage(new ChatComponentText(message));
+		player.addChatMessage(new TextComponentString(message));
 	}
 }
