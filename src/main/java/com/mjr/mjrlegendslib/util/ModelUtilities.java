@@ -8,10 +8,12 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -53,6 +55,20 @@ public class ModelUtilities {
 		tessellator.draw();
 	}
 
+	public static IBakedModel modelFromOBJForge(ResourceLocation loc) throws Exception {
+		return modelFromOBJForge(loc, ImmutableList.of("main"));
+	}
+
+	public static IBakedModel modelFromOBJForge(ResourceLocation loc, List<String> visibleGroups) throws Exception {
+		return modelFromOBJForge(loc, visibleGroups, TRSRTransformation.identity());
+	}
+
+	public static IBakedModel modelFromOBJForge(ResourceLocation loc, List<String> visibleGroups, IModelState parentState) throws Exception {
+		IModel model = OBJLoader.INSTANCE.loadModel(loc);
+		Function<ResourceLocation, TextureAtlasSprite> spriteFunction = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+		return model.bake(new OBJModel.OBJState(visibleGroups, false, parentState), DefaultVertexFormats.ITEM, spriteFunction);
+	}
+
 	public static IBakedModel modelFromOBJ(ResourceLocation loc) throws IOException {
 		return modelFromOBJ(loc, ImmutableList.of("main"));
 	}
@@ -65,5 +81,13 @@ public class ModelUtilities {
 		IModel model = OBJLoaderCustom.instance.loadModel(loc);
 		Function<ResourceLocation, TextureAtlasSprite> spriteFunction = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
 		return model.bake(new OBJModel.OBJState(visibleGroups, false, parentState), DefaultVertexFormats.ITEM, spriteFunction);
+	}
+
+	public static IBakedModel getModelFromRegistry(ModelResourceLocation modelResourceLocation){
+		return MCUtilities.getClient().getRenderItem().getItemModelMesher().getModelManager().getModel(modelResourceLocation);
+	}
+
+	public static IBakedModel getModelFromRegistry(String texturePrefix, String name) {
+		return MCUtilities.getClient().getRenderItem().getItemModelMesher().getModelManager().getModel(new ModelResourceLocation(texturePrefix + name, "inventory"));
 	}
 }
