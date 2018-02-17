@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
@@ -66,5 +67,13 @@ public class ModelUtilities {
 		IModel model = OBJLoaderCustom.instance.loadModel(loc);
 		Function<ResourceLocation, TextureAtlasSprite> spriteFunction = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
 		return model.bake(new OBJModel.OBJState(visibleGroups, false, parentState), DefaultVertexFormats.ITEM, spriteFunction);
+	}
+
+	public static IBakedModel getModelFromRegistry(ModelResourceLocation modelResourceLocation) {
+		return MCUtilities.getClient().getRenderItem().getItemModelMesher().getModelManager().getModel(modelResourceLocation);
+	}
+
+	public static IBakedModel getModelFromRegistry(String texturePrefix, String name) {
+		return MCUtilities.getClient().getRenderItem().getItemModelMesher().getModelManager().getModel(new ModelResourceLocation(texturePrefix + name, "inventory"));
 	}
 }
