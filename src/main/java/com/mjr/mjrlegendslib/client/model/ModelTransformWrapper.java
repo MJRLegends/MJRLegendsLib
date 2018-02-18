@@ -29,31 +29,38 @@ abstract public class ModelTransformWrapper implements IBakedModel {
 		this.parent = parent;
 	}
 
+	@Override
 	public boolean isAmbientOcclusion() {
 		return parent.isAmbientOcclusion();
 	}
 
+	@Override
 	public boolean isGui3d() {
 		return parent.isGui3d();
 	}
 
+	@Override
 	public boolean isBuiltInRenderer() {
 		return parent.isBuiltInRenderer();
 	}
 
+	@Override
 	public TextureAtlasSprite getParticleTexture() {
 		return parent.getParticleTexture();
 	}
 
+	@Override
 	@SuppressWarnings("deprecation")
 	public ItemCameraTransforms getItemCameraTransforms() {
 		return parent.getItemCameraTransforms();
 	}
 
+	@Override
 	public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
 		return parent.getQuads(state, side, rand);
 	}
 
+	@Override
 	public ItemOverrideList getOverrides() {
 		return parent.getOverrides();
 	}

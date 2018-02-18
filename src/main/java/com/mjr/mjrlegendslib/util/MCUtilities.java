@@ -15,7 +15,7 @@ public class MCUtilities {
 	public static boolean isServer() {
 		return FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER;
 	}
-	
+
 	public static Minecraft getClient() {
 		return FMLClientHandler.instance().getClient();
 	}

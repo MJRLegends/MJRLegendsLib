@@ -127,8 +127,8 @@ public class RecipeDumper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}	
-	
+	}
+
 	public static void addShapedRecipeWithCondition(String modID, String conditonType, String conditonValue, ItemStack result, Object... components) {
 		setupDir();
 
@@ -163,14 +163,14 @@ public class RecipeDumper {
 			}
 		}
 		json.put("key", key);
-		
+
 		List<Map<String, String>> conditions = new ArrayList<>();
 		Map<String, String> key2 = new HashMap<>();
 		key2.put("type", modID + ":" + conditonType);
 		key2.put("value", conditonValue);
 		conditions.add(key2);
 		json.put("conditions", conditions);
-	
+
 		json.put("type", isOreDict ? "forge:ore_shaped" : "minecraft:crafting_shaped");
 		json.put("result", serializeItem(result));
 
@@ -214,7 +214,7 @@ public class RecipeDumper {
 		key2.put("value", conditonValue);
 		conditions.add(key2);
 		json.put("conditions", conditions);
-		
+
 		json.put("type", isOreDict ? "forge:ore_shapeless" : "minecraft:crafting_shapeless");
 		json.put("result", serializeItem(result));
 

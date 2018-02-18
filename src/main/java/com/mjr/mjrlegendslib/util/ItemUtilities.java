@@ -42,7 +42,7 @@ public class ItemUtilities {
 		}
 		try {
 			Integer.parseInt(name);
-			String bName = (String) Item.REGISTRY.getNameForObject(item).toString();
+			String bName = Item.REGISTRY.getNameForObject(item).toString();
 			if (logging) {
 				MessageUtilities.infoMessageToLog(Constants.modID, caller + ": the use of numeric IDs is discouraged, please use " + bName + " instead of " + name);
 			}
