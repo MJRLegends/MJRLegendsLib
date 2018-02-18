@@ -200,7 +200,7 @@ public class ClientUtilities {
 		}
 	}
 
-	public static void registerFluidVariant(String fluid, Block fluidBlock) {	
+	public static void registerFluidVariant(String fluid, Block fluidBlock) {
 		ModelResourceLocation location = new ModelResourceLocation(fluid, "fluid");
 		Item item = Item.getItemFromBlock(fluidBlock);
 		ModelBakery.registerItemVariants(item, new ResourceLocation(fluid));

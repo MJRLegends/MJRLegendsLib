@@ -18,19 +18,19 @@ public class WorldGenUtilities {
 		int y = world.getTopSolidOrLiquidBlock(new BlockPos(x, 0, z)).getY();
 		worldGen.generate(world, rand, new BlockPos(x, y, z));
 	}
-	
+
 	public static void generateStructureWithRandomY(WorldGenerator worldGen, World world, Random rand, BlockPos pos) {
 		int x = pos.getX() + 8;
 		int z = pos.getZ() + 8;
 		generateStructureWithSetY(worldGen, world, rand, new BlockPos(x, pos.getY(), z), pos.getY());
 	}
-	
+
 	public static void generateStructureWithSetY(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int y) {
 		int x = pos.getX() + 8;
 		int z = pos.getZ() + 8;
 		worldGen.generate(world, rand, new BlockPos(x, y, z));
 	}
-	
+
 	public static void generateStructureWithRangeY(WorldGenerator worldGen, World world, Random rand, BlockPos pos, int minY, int maxY) {
 		int x = pos.getX() + 8;
 		int z = pos.getZ() + 8;

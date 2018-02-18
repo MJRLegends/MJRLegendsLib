@@ -16,8 +16,8 @@ public class MessageUtilities {
 
 	public static void errorMessageToLog(String modID, String error) {
 		log.error(modID + ": " + error);
-	}	
-	
+	}
+
 	public static void errorMessageToLog(String modID, String error, Object... obj) {
 		log.error(modID + ": " + error, obj);
 	}
@@ -25,15 +25,15 @@ public class MessageUtilities {
 	public static void infoMessageToLog(String modID, String error) {
 		log.info(modID + ": " + error);
 	}
-	
+
 	public static void infoMessageToLog(String modID, String error, Object... obj) {
 		log.info(modID + ": " + error, obj);
 	}
 
 	public static void fatalErrorMessageToLog(String modID, String error) {
 		log.fatal(modID + ": " + error);
-	}	
-	
+	}
+
 	public static void fatalErrorMessageToLog(String modID, String error, Object... obj) {
 		log.fatal(modID + ": " + error, obj);
 	}
@@ -41,7 +41,7 @@ public class MessageUtilities {
 	public static void warnErrorMessageToLog(String modID, String error) {
 		log.warn(modID + ": " + error);
 	}
-	
+
 	public static void warnErrorMessageToLog(String modID, String error, Object... obj) {
 		log.warn(modID + ": " + error, obj);
 	}
@@ -49,7 +49,7 @@ public class MessageUtilities {
 	public static void debugMessageToLog(String modID, String error) {
 		infoMessageToLog(modID, error);
 	}
-	
+
 	public static void debugMessageToLog(String modID, String error, Object... obj) {
 		infoMessageToLog(modID, error, obj);
 	}

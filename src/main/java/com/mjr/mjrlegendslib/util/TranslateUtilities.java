@@ -10,7 +10,7 @@ import com.mjr.mjrlegendslib.Constants;
 @SuppressWarnings("deprecation")
 public class TranslateUtilities {
 	// Credit micdoodle8, radfast
-	
+
 	public static String translate(String key, boolean logError) {
 		String result = I18n.translateToLocal(key);
 		int comment = result.indexOf('#');
@@ -23,7 +23,7 @@ public class TranslateUtilities {
 		}
 		return ret;
 	}
-	
+
 	public static String translate(String key) {
 		String result = I18n.translateToLocal(key);
 		int comment = result.indexOf('#');

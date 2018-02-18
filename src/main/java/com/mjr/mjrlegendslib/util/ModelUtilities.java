@@ -83,7 +83,7 @@ public class ModelUtilities {
 		return model.bake(new OBJModel.OBJState(visibleGroups, false, parentState), DefaultVertexFormats.ITEM, spriteFunction);
 	}
 
-	public static IBakedModel getModelFromRegistry(ModelResourceLocation modelResourceLocation){
+	public static IBakedModel getModelFromRegistry(ModelResourceLocation modelResourceLocation) {
 		return MCUtilities.getClient().getRenderItem().getItemModelMesher().getModelManager().getModel(modelResourceLocation);
 	}
 
