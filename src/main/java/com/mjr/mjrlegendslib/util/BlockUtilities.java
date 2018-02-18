@@ -37,7 +37,7 @@ public class BlockUtilities {
 
 		Block block = Block.getBlockFromName(name);
 		if (block == null) {
-			Item item = (Item) Item.itemRegistry.getObject(new ResourceLocation(name));
+			Item item = Item.itemRegistry.getObject(new ResourceLocation(name));
 			if (item instanceof ItemBlock) {
 				block = ((ItemBlock) item).block;
 			}
@@ -50,7 +50,7 @@ public class BlockUtilities {
 		}
 		try {
 			Integer.parseInt(name);
-			String bName = (String) GameData.getBlockRegistry().getNameForObject(block).toString();
+			String bName = GameData.getBlockRegistry().getNameForObject(block).toString();
 			if (logging) {
 				MessageUtilities.infoMessageToLog(Constants.modID, caller + ": the use of numeric IDs is discouraged, please use " + bName + " instead of " + name);
 			}

@@ -69,11 +69,11 @@ public class RegisterUtilities {
 	public static void registerEventHandler(Object handler) {
 		MinecraftForge.EVENT_BUS.register(handler);
 	}
-	
+
 	public static void registerWorldGenerator(IWorldGenerator generator, int modGenerationWeight) {
 		GameRegistry.registerWorldGenerator(generator, modGenerationWeight);
 	}
-	
+
 	public static void registerWorldGenerator(IWorldGenerator generator) {
 		GameRegistry.registerWorldGenerator(generator, 0);
 	}

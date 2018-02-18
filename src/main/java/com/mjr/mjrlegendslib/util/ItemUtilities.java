@@ -43,7 +43,7 @@ public class ItemUtilities {
 		}
 		try {
 			Integer.parseInt(name);
-			String bName = (String) GameData.getItemRegistry().getNameForObject(item).toString();
+			String bName = GameData.getItemRegistry().getNameForObject(item).toString();
 			if (logging) {
 				MessageUtilities.infoMessageToLog(Constants.modID, caller + ": the use of numeric IDs is discouraged, please use " + bName + " instead of " + name);
 			}
@@ -57,7 +57,7 @@ public class ItemUtilities {
 		Random rand = new Random();
 		return items.get(rand.nextInt(items.size()));
 	}
-	
+
 	public static ItemStack getRandomItemStackFromItemList(List<Item> items) {
 		Random rand = new Random();
 		return new ItemStack(items.get(rand.nextInt(items.size())), 1, 0);
@@ -68,7 +68,7 @@ public class ItemUtilities {
 		int temp = rand.nextInt(items.size());
 		return new ItemStack(items.get(temp), 1, temp);
 	}
-	
+
 	public static ItemStack getRandomItemStackFromItemStackList(List<ItemStack> items) {
 		Random rand = new Random();
 		return items.get(rand.nextInt(items.size()));

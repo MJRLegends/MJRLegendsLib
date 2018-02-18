@@ -19,7 +19,7 @@ public class MJRLegendsLib {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		 ModelLoaderRegistry.registerLoader(OBJLoaderCustom.instance);
+		ModelLoaderRegistry.registerLoader(OBJLoaderCustom.instance);
 	}
 
 	@EventHandler

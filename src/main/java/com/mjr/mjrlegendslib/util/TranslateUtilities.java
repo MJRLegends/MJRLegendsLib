@@ -9,7 +9,7 @@ import com.mjr.mjrlegendslib.Constants;
 
 public class TranslateUtilities {
 	// Credit micdoodle8, radfast
-	
+
 	public static String translate(String key, boolean logError) {
 		String result = StatCollector.translateToLocal(key);
 		int comment = result.indexOf('#');
@@ -22,7 +22,7 @@ public class TranslateUtilities {
 		}
 		return ret;
 	}
-	
+
 	public static String translate(String key) {
 		String result = StatCollector.translateToLocal(key);
 		int comment = result.indexOf('#');

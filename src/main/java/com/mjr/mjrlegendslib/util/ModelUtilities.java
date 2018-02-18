@@ -56,7 +56,7 @@ public class ModelUtilities {
 	}
 
 	public static IFlexibleBakedModel modelFromOBJ(ResourceLocation loc) throws IOException {
-		return (IFlexibleBakedModel) modelFromOBJ(loc, ImmutableList.of("main"));
+		return modelFromOBJ(loc, ImmutableList.of("main"));
 	}
 
 	public static IFlexibleBakedModel modelFromOBJ(ResourceLocation loc, List<String> visibleGroups) throws IOException {
