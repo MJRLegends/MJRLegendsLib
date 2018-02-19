@@ -1,0 +1,58 @@
+﻿========================================Not Released Updates==========================================
+
+======================================================================================================
+
+
+
+===========================================Released Updates===========================================
+v1.0.5
+*Added Custom OBJ Loader to fix resource leak in vanilla Forge when loading OBJ models.
+*Added some more method to ModelUtilities class
+*Clean up/Fixed formatting
+*Tweaks to Basic Tool classes
+*Added a method to ClientUtilities class
+
+v1.0.4
+*Added ItemBasicMeta class
+*Added more methods to ClientUtilities class
+*Added NetworkUtilities class
+*Added Item & Block Utilities classes, added Block & Item Tuple classes
+*Added more methods to Register Utilities class
+*Added more methods to Item Utilities class
+*Added one method to TranslateUtilities class
+*Added IInventoryDefaults class
+*Added more methods to MC & Client Utilities classses
+*Added more methods to Network & Player Utilities classses
+*Added IPacket & PacketBase classes
+*Fixed null pointer on tile entities for getDisplayName
+*Changes to ItemBasicMeta class
+*Added more methods to ClientUtilities
+*Added Fingerprint Violation Jar Signing
+*Added more methods to PlayerUtilities
+*Fixed issues with some methods in PlayerUtilties class
+
+v1.0.3
+*Added BasicItem class
+*Added ShapeUtilities & WorldGenSphere classes
+*Added MappingUtilities, Added more methods to MessageUtilities
+*Added Basic Fluid Block, Explosion Block, Bucket Handler, Multi Biome normal & Space Chunk Providers
+*Updated build.gradle
+*Added Filled Cave Map Gen class
+*Fixed & Added more methods to WorldGenUtilities
+
+v1.0.2
+*Clean up/Fix Formatting
+*Added a MC Utilities class
+*Added a Item Block Default class
+*Added a few more methods to Registery Utilities
+*Added a few more methods to Client Utilities & RegisterUtilities
+*Added Model Utilities & Translate Utilities classes
+*Added BiomeDecoratorBase class
+*Fix formatting
+
+v1.0.1
+*Fixed Crash issue
+*Fixed version issue stopping the mod loading correctly
+
+v1.0.0
+*First Release
