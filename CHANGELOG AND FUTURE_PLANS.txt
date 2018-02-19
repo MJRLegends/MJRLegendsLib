@@ -1,0 +1,73 @@
+﻿========================================Not Released Updates==========================================
+
+======================================================================================================
+
+
+
+===========================================Released Updates===========================================
+
+v1.0.8
+*Added Custom OBJ Loader to fix resource leak in vanilla Forge when loading OBJ models.
+*Added some more method to ModelUtilities class
+*Clean up/Fixed formatting
+*Tweaks to Basic Tool classes
+*Added a method to ClientUtilities class
+
+v1.0.7
+*Added ItemBasicMeta class
+*Added more methods to ClientUtilities class
+*Added NetworkUtilities class
+*Added Item & Block Utilities classes, added Block & Item Tuple classes
+*Added more methods to Register Utilities class
+*Added more methods to Item Utilities class
+*Added one method to TranslateUtilities class
+*Made FluidBasicBlock so you can swim and can't breath inside of it by default
+*Added IInventoryDefaults class
+*Added more methods to MC & Client Utilities classses
+*Added more methods to Network & Player Utilities classses
+*Added IPacket & PacketBase classes
+*Changes to ItemBasicMeta class
+*Added more methods to ClientUtilities
+*Added more methods to PlayerUtilities
+*Fixed issues with some methods in PlayerUtilties class
+
+v1.0.6
+*Fix item model rotation
+*Added Fingerprint Violation Jar Signing
+
+v1.0.5
+*Added Basic Fluid Block, Explosion Block, Bucket Handler, Multi Biome
+*Added MappingUtilities, Added more methods to MessageUtilities
+*Added ShapeUtilities & WorldGenSphere classes
+*Added Filled Cave Map Gen class
+*Fixed & Added more methods to WorldGenUtilities
+
+v1.0.4
+*Added support for adding Conditions at recipe JSON file creation
+
+v1.0.3
+*Added Model Utilities & Translate Utilities classes
+*Fixes for MC 1.12.2
+*Tweak for Translate Utilities outputs
+*Added BiomeDecoratorBase class *Fix formatting
+*Added Recipe Dumper class
+*Added BasicItem class
+
+v1.0.2
+*Clean up/Fix Formatting
+*Added back a method in Client Utilities
+*Change to Forge 1.12.2-14.23.1.2555
+*Suppress warnings
+*Fixes for Custom Models, and for registering json files
+*Added a Recipe Utilities class
+*Added a MC Utilities class
+*Added a Item Block Default class
+*Added a few more methods to Registery Utilities
+*Added BiomeGenBase class
+*Added a few more methods to Client Utilities & RegisterUtilities
+
+v1.0.1
+*Fixed version issue stopping the mod loading correctly
+
+v1.0.0
+*First Release
