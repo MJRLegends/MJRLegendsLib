@@ -8,6 +8,8 @@ import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.mjr.mjrlegendslib.client.model.OBJLoaderCustom;
 import com.mjr.mjrlegendslib.util.MessageUtilities;
@@ -18,6 +20,7 @@ public class MJRLegendsLib {
 	public static MJRLegendsLib instance;
 
 	@EventHandler
+	@SideOnly(Side.CLIENT)
 	public void preInit(FMLPreInitializationEvent event) {
 		ModelLoaderRegistry.registerLoader(OBJLoaderCustom.instance);
 	}
