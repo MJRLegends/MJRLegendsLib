@@ -5,6 +5,9 @@
 
 
 ===========================================Released Updates===========================================
+v1.0.6
+*Fixed model loading crash issue
+
 v1.0.5
 *Added Custom OBJ Loader to fix resource leak in vanilla Forge when loading OBJ models.
 *Added some more method to ModelUtilities class
