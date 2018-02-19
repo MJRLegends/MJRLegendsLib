@@ -16,6 +16,7 @@ import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.TRSRTransformation;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 
 import org.lwjgl.opengl.GL11;
@@ -53,6 +54,20 @@ public class ModelUtilities {
 		}
 
 		tessellator.draw();
+	}
+
+	public static IFlexibleBakedModel modelFromOBJForge(ResourceLocation loc) throws Exception {
+		return modelFromOBJForge(loc, ImmutableList.of("main"));
+	}
+
+	public static IFlexibleBakedModel modelFromOBJForge(ResourceLocation loc, List<String> visibleGroups) throws Exception {
+		return modelFromOBJForge(loc, visibleGroups, TRSRTransformation.identity());
+	}
+
+	public static IFlexibleBakedModel modelFromOBJForge(ResourceLocation loc, List<String> visibleGroups, IModelState parentState) throws Exception {
+		IModel model = OBJLoader.instance.loadModel(loc);
+		Function<ResourceLocation, TextureAtlasSprite> spriteFunction = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+		return model.bake(new OBJModel.OBJState(visibleGroups, false, parentState), DefaultVertexFormats.ITEM, spriteFunction);
 	}
 
 	public static IFlexibleBakedModel modelFromOBJ(ResourceLocation loc) throws IOException {
