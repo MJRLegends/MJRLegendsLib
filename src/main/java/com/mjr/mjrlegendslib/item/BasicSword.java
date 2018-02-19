@@ -14,12 +14,12 @@ public class BasicSword extends ItemSword {
 
 	public BasicSword(ToolMaterial material, String name, double damageBase) {
 		super(material);
-		this.attackDamageBase = damageBase + material.getDamageVsEntity();
+		this.attackDamageBase = damageBase + material.getAttackDamage();
 		this.setUnlocalizedName(name);
 	}
 
 	@Override
-	public float getDamageVsEntity() {
+	public float getAttackDamage() {
 		return (float) attackDamageBase;
 	}
 
