@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.ChunkProviderOverworld;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
@@ -23,7 +22,7 @@ import com.mjr.mjrlegendslib.world.gen.MapGenBaseMeta;
  * Class from Galacticraft Core
  * Credit micdoodle8, radfast
  */
-public abstract class ChunkProviderMultiBiomeSpace extends ChunkProviderOverworld {
+public abstract class ChunkProviderMultiBiomeSpace extends ChunkProviderBase {
 	protected Random rand;
 	protected World worldObj;
 	private double[] depthBuffer;
@@ -54,7 +53,7 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkProviderOverworl
 	private List<MapGenBaseMeta> worldGenerators;
 
 	public ChunkProviderMultiBiomeSpace(World world, long seed, boolean flag) {
-		super(world, seed, flag, "");
+		super();
 		this.depthBuffer = new double[256];
 		this.worldObj = world;
 		this.rand = new Random(seed);
@@ -104,7 +103,6 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkProviderOverworl
 		return chunk;
 	}
 
-	@Override
 	public void setBlocksInChunk(int p_180518_1_, int p_180518_2_, ChunkPrimer p_180518_3_) {
 		this.biomesForGeneration = this.worldObj.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, p_180518_1_ * 4 - 2, p_180518_2_ * 4 - 2, 10, 10);
 		this.generateHeightMap(p_180518_1_ * 4, 0, p_180518_2_ * 4);
@@ -298,15 +296,6 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkProviderOverworl
 		BlockFalling.fallInstantly = false;
 	}
 
-	@Override
-	public boolean generateStructures(Chunk chunkIn, int x, int z) {
-		return false;
-	}
-
-	@Override
-	public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position, boolean p_180513_4_) {
-		return null;
-	}
 
 	@Override
 	public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
