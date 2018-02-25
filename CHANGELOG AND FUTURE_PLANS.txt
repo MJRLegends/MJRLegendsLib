@@ -5,6 +5,9 @@
 
 
 ===========================================Released Updates===========================================
+v1.0.8
+*Fix compatibility with Finder Compass mod
+
 v1.0.7
 *Fixed issue #3
 
