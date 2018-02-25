@@ -13,13 +13,12 @@ import net.minecraft.world.WorldEntitySpawner;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.ChunkGeneratorOverworld;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
 import com.mjr.mjrlegendslib.world.gen.MapGenBaseMeta;
 
-public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverworld {
+public abstract class ChunkProviderMultiBiomeNormal extends ChunkProviderBase {
 	private Random rand;
 	protected World worldObj;
 	private double[] depthBuffer;
@@ -44,7 +43,7 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverwo
 	private List<MapGenBaseMeta> worldGenerators;
 
 	public ChunkProviderMultiBiomeNormal(World world, long seed, boolean flag) {
-		super(world, seed, flag, "");
+		super();
 		this.depthBuffer = new double[256];
 		this.worldObj = world;
 		this.rand = new Random(seed);
@@ -93,7 +92,6 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverwo
 		return chunk;
 	}
 
-	@Override
 	public void setBlocksInChunk(int p_180518_1_, int p_180518_2_, ChunkPrimer p_180518_3_) {
 		this.biomesForGeneration = this.worldObj.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, p_180518_1_ * 4 - 2, p_180518_2_ * 4 - 2, 10, 10);
 		this.generateHeightMap(p_180518_1_ * 4, 0, p_180518_2_ * 4);
@@ -280,11 +278,6 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkGeneratorOverwo
 		decoratePlanet(this.worldObj, this.rand, x, z);
 		WorldEntitySpawner.performWorldGenSpawning(this.worldObj, biome, x + 8, z + 8, 16, 16, this.rand);
 		BlockFalling.fallInstantly = false;
-	}
-
-	@Override
-	public boolean generateStructures(Chunk chunkIn, int x, int z) {
-		return false;
 	}
 
 	@Override
