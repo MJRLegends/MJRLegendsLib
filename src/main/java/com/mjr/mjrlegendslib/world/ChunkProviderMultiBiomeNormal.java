@@ -13,13 +13,12 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.ChunkProviderGenerate;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
 import com.mjr.mjrlegendslib.world.gen.MapGenBaseMeta;
 
-public abstract class ChunkProviderMultiBiomeNormal extends ChunkProviderGenerate {
+public abstract class ChunkProviderMultiBiomeNormal extends ChunkProviderBase {
 	private Random rand;
 	protected World worldObj;
 	private double[] depthBuffer;
@@ -44,7 +43,7 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkProviderGenerat
 	private List<MapGenBaseMeta> worldGenerators;
 
 	public ChunkProviderMultiBiomeNormal(World world, long seed, boolean flag) {
-		super(world, seed, flag, "");
+		super();
 		this.depthBuffer = new double[256];
 		this.worldObj = world;
 		this.rand = new Random(seed);
@@ -93,7 +92,6 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkProviderGenerat
 		return chunk;
 	}
 
-	@Override
 	public void setBlocksInChunk(int p_180518_1_, int p_180518_2_, ChunkPrimer p_180518_3_) {
 		this.biomesForGeneration = this.worldObj.getWorldChunkManager().getBiomesForGeneration(this.biomesForGeneration, p_180518_1_ * 4 - 2, p_180518_2_ * 4 - 2, 10, 10);
 		this.generateHeightMap(p_180518_1_ * 4, 0, p_180518_2_ * 4);
@@ -253,7 +251,6 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkProviderGenerat
 	/**
 	 * Replaces the stone that was placed in with blocks that match the biome
 	 */
-	@Override
 	public void replaceBlocksForBiome(int chunkX, int chunkZ, ChunkPrimer chunk, BiomeGenBase[] biomeGen) {
 		double d0 = 0.03125D;
 		this.depthBuffer = this.surfaceNoise.func_151599_a(this.depthBuffer, chunkX * 16, chunkZ * 16, 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
@@ -288,11 +285,6 @@ public abstract class ChunkProviderMultiBiomeNormal extends ChunkProviderGenerat
 
 	public boolean generateStructures(Chunk chunkIn, int x, int z) {
 		return false;
-	}
-
-	@Override
-	public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position) {
-		return null;
 	}
 
 	@Override
