@@ -5,6 +5,9 @@
 
 
 ===========================================Released Updates===========================================
+v1.1.3
+*Fixed crash issue with changes to Axes
+
 v1.1.2
 *Fixed issue #4
 
