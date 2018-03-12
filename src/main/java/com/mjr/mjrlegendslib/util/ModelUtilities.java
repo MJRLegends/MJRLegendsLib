@@ -64,7 +64,7 @@ public class ModelUtilities {
 	}
 
 	public static IBakedModel modelFromOBJForge(ResourceLocation loc, List<String> visibleGroups, IModelState parentState) throws Exception {
-        OBJModel model = (OBJModel) ModelLoaderRegistry.getModel(loc);
+		OBJModel model = (OBJModel) ModelLoaderRegistry.getModel(loc);
 		Function<ResourceLocation, TextureAtlasSprite> spriteFunction = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
 		return model.bake(new OBJModel.OBJState(visibleGroups, false, parentState), DefaultVertexFormats.ITEM, spriteFunction);
 	}

@@ -8,7 +8,7 @@ public class BasicAxe extends ItemAxe {
 		super(material, material.getAttackDamage(), -3.0F);
 		this.setUnlocalizedName(name);
 	}
-	
+
 	public BasicAxe(ToolMaterial material, String name, float damage, float speed) {
 		super(material, damage, speed);
 		this.setUnlocalizedName(name);
