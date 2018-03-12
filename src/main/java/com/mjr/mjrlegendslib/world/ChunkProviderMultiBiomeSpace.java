@@ -296,7 +296,6 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkProviderBase {
 		BlockFalling.fallInstantly = false;
 	}
 
-
 	@Override
 	public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
 		Biome biomegenbase = this.worldObj.getBiome(pos);
