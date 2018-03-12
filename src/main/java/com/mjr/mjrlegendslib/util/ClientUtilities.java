@@ -67,7 +67,7 @@ public class ClientUtilities {
 			registerItemJson(texturePrefix, item, i, items[i]);
 		}
 	}
-	
+
 	public static void registerItemJson(String texturePrefix, Item item, String[] items, boolean halfAmount) {
 		int times = halfAmount ? (items.length / 2) : items.length;
 		for (int i = 0; i < times; i++) {
