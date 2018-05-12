@@ -7,7 +7,7 @@ import net.minecraft.util.BlockPos;
 
 public class WorldGenShapeUtilities {
 
-	public static HashMap<BlockPos, IBlockState> generateSphere(IBlockState state, int size, BlockPos pos) {
+	public static HashMap<BlockPos, IBlockState> generateSphereHollow(IBlockState state, int size, BlockPos pos) {
 		HashMap<BlockPos, IBlockState> blocks = new HashMap<BlockPos, IBlockState>();
 		int halfSize = (size / 2);
 		for (int i = 0; i <= halfSize; i++) {
@@ -19,6 +19,45 @@ public class WorldGenShapeUtilities {
 						if (dist <= halfSize - i && dist > halfSize - (i + 1))
 							if (i == 0)
 								blocks.put(pos.add(xx, yy, zz), state);
+					}
+				}
+			}
+		}
+		return blocks;
+	}
+
+	public static HashMap<BlockPos, IBlockState> generateSphere(IBlockState state1, IBlockState state2, int size, BlockPos pos) {
+		HashMap<BlockPos, IBlockState> blocks = new HashMap<BlockPos, IBlockState>();
+		int halfSize = (size / 2);
+		for (int i = 0; i <= halfSize; i++) {
+			for (int yy = -halfSize; yy < (halfSize + 1); yy++) {
+				for (int zz = -halfSize; zz < (halfSize + 1); zz++) {
+					for (int xx = -halfSize; xx < (halfSize + 1); xx++) {
+						BlockPos loc = new BlockPos(xx, yy, zz);
+						double dist = Math.abs(loc.getDistance(0, 0, 0));
+						if (dist <= halfSize - i && dist > halfSize - (i + 1))
+							if (i == 0)
+								blocks.put(pos.add(xx, yy, zz), state1);
+							else
+								blocks.put(pos.add(xx, yy, zz), state2);
+					}
+				}
+			}
+		}
+		return blocks;
+	}
+
+	public static HashMap<BlockPos, IBlockState> generateSphere(IBlockState state, int size, BlockPos pos) {
+		HashMap<BlockPos, IBlockState> blocks = new HashMap<BlockPos, IBlockState>();
+		int halfSize = (size / 2);
+		for (int i = 0; i <= halfSize; i++) {
+			for (int yy = -halfSize; yy < (halfSize + 1); yy++) {
+				for (int zz = -halfSize; zz < (halfSize + 1); zz++) {
+					for (int xx = -halfSize; xx < (halfSize + 1); xx++) {
+						BlockPos loc = new BlockPos(xx, yy, zz);
+						double dist = Math.abs(loc.getDistance(0, 0, 0));
+						if (dist <= halfSize - i && dist > halfSize - (i + 1))
+							blocks.put(pos.add(xx, yy, zz), state);
 					}
 				}
 			}
