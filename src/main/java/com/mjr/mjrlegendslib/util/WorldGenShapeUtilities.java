@@ -34,7 +34,7 @@ public class WorldGenShapeUtilities {
 				for (int zz = -halfSize; zz < (halfSize + 1); zz++) {
 					for (int xx = -halfSize; xx < (halfSize + 1); xx++) {
 						BlockPos loc = new BlockPos(xx, yy, zz);
-						double dist = Math.abs(loc.getDistance(0, 0, 0));
+						double dist = Math.abs(loc.distanceSq(0, 0, 0));
 						if (dist <= halfSize - i && dist > halfSize - (i + 1))
 							if (i == 0)
 								blocks.put(pos.add(xx, yy, zz), state1);
@@ -55,7 +55,7 @@ public class WorldGenShapeUtilities {
 				for (int zz = -halfSize; zz < (halfSize + 1); zz++) {
 					for (int xx = -halfSize; xx < (halfSize + 1); xx++) {
 						BlockPos loc = new BlockPos(xx, yy, zz);
-						double dist = Math.abs(loc.getDistance(0, 0, 0));
+						double dist = Math.abs(loc.distanceSq(0, 0, 0));
 						if (dist <= halfSize - i && dist > halfSize - (i + 1))
 							blocks.put(pos.add(xx, yy, zz), state);
 					}
