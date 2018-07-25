@@ -5,6 +5,9 @@
 
 
 ===========================================Released Updates===========================================
+v1.1.0
+*Fixed issue #7
+
 v1.0.9
 *Fixed Sphere being hollow, added more option methods for Spheres
 *Clean up/Fixed formatting
