@@ -1,3 +1,5 @@
+[![](http://cf.way2muchnoise.eu/full_mjrlegendslib_downloads.svg)](https://minecraft.curseforge.com/projects/mjrlegendslib) [![](http://cf.way2muchnoise.eu/versions/Minecraft_mjrlegendslib_all.svg)](https://minecraft.curseforge.com/projects/mjrlegendslib)
+
 # MJRLegendsLib
 A library of generic code for my other mods
 
