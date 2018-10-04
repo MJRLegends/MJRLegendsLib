@@ -5,6 +5,11 @@
 
 
 ===========================================Released Updates===========================================
+v1.1.1
+*Added a ConfigGuiFactoryBase class
+*Added Proxy Classes
+*Added some network classes/code
+
 v1.1.0
 *Fixed issue #7
 
