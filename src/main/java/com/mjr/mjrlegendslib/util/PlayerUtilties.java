@@ -1,13 +1,19 @@
 package com.mjr.mjrlegendslib.util;
 
+import java.util.Iterator;
 import java.util.UUID;
 
+import com.mjr.mjrlegendslib.Constants;
+
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.INetHandler;
-import net.minecraft.network.NetHandlerPlayServer;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PlayerUtilties {
 
@@ -101,5 +107,78 @@ public class PlayerUtilties {
 			if (compareUUIDToUsername(UUID, player))
 				online = true;
 		return online;
+	}
+
+	public static EntityPlayerMP getPlayerForUsernameVanilla(MinecraftServer server, String username)// Credit micdoodle8, radfast
+	{
+		return server.getPlayerList().getPlayerByUsername(username);
+	}
+
+	public static EntityPlayerMP getPlayerBaseServerFromPlayerUsername(String username, boolean ignoreCase)// Credit micdoodle8, radfast
+	{
+		MinecraftServer server = MCUtilities.getServer();
+		return getPlayerBaseServerFromPlayerUsername(server, username, ignoreCase);
+	}
+
+	public static EntityPlayerMP getPlayerBaseServerFromPlayerUsername(MinecraftServer server, String username, boolean ignoreCase)// Credit micdoodle8, radfast
+	{
+		if (server != null) {
+			if (ignoreCase) {
+				return getPlayerForUsernameVanilla(server, username);
+			} else {
+				Iterator iterator = server.getPlayerList().getPlayers().iterator();
+				EntityPlayerMP entityplayermp;
+
+				do {
+					if (!iterator.hasNext()) {
+						return null;
+					}
+
+					entityplayermp = (EntityPlayerMP) iterator.next();
+				} while (!entityplayermp.getName().equalsIgnoreCase(username));
+
+				return entityplayermp;
+			}
+		}
+
+		MessageUtilities.fatalErrorMessageToLog(Constants.modID, "Warning: Could not find player base server instance for player " + username);
+
+		return null;
+	}
+
+	public static EntityPlayerMP getPlayerBaseServerFromPlayer(EntityPlayer player, boolean ignoreCase)// Credit micdoodle8, radfast
+	{
+		if (player == null) {
+			return null;
+		}
+
+		if (player instanceof EntityPlayerMP) {
+			return (EntityPlayerMP) player;
+		}
+
+		return getPlayerBaseServerFromPlayerUsername(player.getName(), ignoreCase);
+	}
+
+	public static String getName(EntityPlayer player) // Credit micdoodle8, radfast
+	{
+		if (player == null)
+			return null;
+
+		if (player.getGameProfile() == null)
+			return null;
+
+		return player.getGameProfile().getName();
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static EntityPlayerSP getPlayerBaseClientFromPlayer(EntityPlayer player, boolean ignoreCase) // Credit micdoodle8, radfast
+	{
+		EntityPlayerSP clientPlayer = FMLClientHandler.instance().getClientPlayerEntity();
+
+		if (clientPlayer == null && player != null) {
+			MessageUtilities.fatalErrorMessageToLog(Constants.modID, "Warning: Could not find player base client instance for player " + getName(player));
+		}
+
+		return clientPlayer;
 	}
 }
