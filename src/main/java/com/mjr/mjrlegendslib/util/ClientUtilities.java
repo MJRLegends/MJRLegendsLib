@@ -2,9 +2,16 @@ package com.mjr.mjrlegendslib.util;
 
 import java.util.List;
 
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableMap;
+import com.mjr.mjrlegendslib.Constants;
+import com.mjr.mjrlegendslib.client.model.IItemMeshDefinitionCustom;
+import com.mjr.mjrlegendslib.client.model.ModelTransformWrapper;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -30,12 +37,6 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableMap;
-import com.mjr.mjrlegendslib.Constants;
-import com.mjr.mjrlegendslib.client.model.IItemMeshDefinitionCustom;
-import com.mjr.mjrlegendslib.client.model.ModelTransformWrapper;
 
 public class ClientUtilities {
 	public static void addVariants(String modID, String name, String... variants) {
@@ -239,4 +240,15 @@ public class ClientUtilities {
 		event.getMap().registerSprite(new ResourceLocation(texturePrefix + "model/" + texture));
 	}
 
+	public static ScaledResolution getScaledRes(Minecraft minecraft, int width, int height) {
+		return new ScaledResolution(minecraft);
+	}
+
+	public static int to32BitColor(int a, int r, int g, int b) {
+		a = a << 24;
+		r = r << 16;
+		g = g << 8;
+
+		return a | r | g | b;
+	}
 }
