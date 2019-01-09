@@ -126,7 +126,7 @@ public class PlayerUtilties {
 			if (ignoreCase) {
 				return getPlayerForUsernameVanilla(server, username);
 			} else {
-				Iterator iterator = server.getPlayerList().getPlayers().iterator();
+				Iterator iterator = server.getPlayerList().getPlayerList().iterator();
 				EntityPlayerMP entityplayermp;
 
 				do {
