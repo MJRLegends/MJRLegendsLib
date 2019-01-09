@@ -2,9 +2,9 @@ package com.mjr.mjrlegendslib.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.entity.player.EntityPlayer;
 
 /*
@@ -39,7 +39,7 @@ public class Overlay
         final float var7 = 0.00390625F;
         final float var8 = 0.00390625F;
         final Tessellator tess = Tessellator.getInstance();
-        BufferBuilder worldRenderer = tess.getBuffer();
+        VertexBuffer worldRenderer = tess.getBuffer();
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         worldRenderer.pos(par1 + 0, par2 + par6, 0.0).tex((par3 + 0) * var7, (par4 + par6) * var8).endVertex();
         worldRenderer.pos(par1 + par5, par2 + par6, 0.0).tex((par3 + par5) * var7, (par4 + par6) * var8).endVertex();
@@ -62,7 +62,7 @@ public class Overlay
         var7 *= 0.5D;
         var9 *= 0.5D;
         final Tessellator tess = Tessellator.getInstance();
-        BufferBuilder worldRenderer = tess.getBuffer();
+        VertexBuffer worldRenderer = tess.getBuffer();
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         worldRenderer.pos(var1 - var7, var3 + var9, var5).tex(0.0D, 1.0D).endVertex();
         worldRenderer.pos(var1 + var7, var3 + var9, var5).tex(1.0D, 1.0D).endVertex();
