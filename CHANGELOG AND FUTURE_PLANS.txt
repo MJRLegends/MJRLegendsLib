@@ -5,6 +5,9 @@
 
 
 ===========================================Released Updates===========================================
+v1.1.8
+*Fixed client class crashing on server side
+
 v1.1.7
 *Added a bunch of new methods for use in a new mod
 
