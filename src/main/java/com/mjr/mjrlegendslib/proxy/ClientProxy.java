@@ -35,7 +35,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public EntityPlayer getPlayerFromNetHandler(INetHandler handler) {
 		if (handler instanceof NetHandlerPlayServer) {
-			return ((NetHandlerPlayServer) handler).player;
+			return ((NetHandlerPlayServer) handler).playerEntity;
 		} else {
 			return FMLClientHandler.instance().getClientPlayerEntity();
 		}

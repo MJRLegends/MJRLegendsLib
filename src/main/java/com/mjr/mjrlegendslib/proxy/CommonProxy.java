@@ -21,7 +21,7 @@ public class CommonProxy {
 
 	public EntityPlayer getPlayerFromNetHandler(INetHandler handler) {
 		if (handler instanceof NetHandlerPlayServer) {
-			return ((NetHandlerPlayServer) handler).player;
+			return ((NetHandlerPlayServer) handler).playerEntity;
 		} else {
 			return null;
 		}
