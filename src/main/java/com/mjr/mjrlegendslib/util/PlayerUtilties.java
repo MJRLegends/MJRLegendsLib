@@ -5,15 +5,11 @@ import java.util.UUID;
 
 import com.mjr.mjrlegendslib.Constants;
 
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
-import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PlayerUtilties {
 
@@ -168,17 +164,5 @@ public class PlayerUtilties {
 			return null;
 
 		return player.getGameProfile().getName();
-	}
-
-	@SideOnly(Side.CLIENT)
-	public static EntityPlayerSP getPlayerBaseClientFromPlayer(EntityPlayer player, boolean ignoreCase) // Credit micdoodle8, radfast
-	{
-		EntityPlayerSP clientPlayer = FMLClientHandler.instance().getClientPlayerEntity();
-
-		if (clientPlayer == null && player != null) {
-			MessageUtilities.fatalErrorMessageToLog(Constants.modID, "Warning: Could not find player base client instance for player " + getName(player));
-		}
-
-		return clientPlayer;
 	}
 }
