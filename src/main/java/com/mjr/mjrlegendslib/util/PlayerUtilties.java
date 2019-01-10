@@ -107,7 +107,7 @@ public class PlayerUtilties {
 
 	public static EntityPlayerMP getPlayerForUsernameVanilla(MinecraftServer server, String username)// Credit micdoodle8, radfast
 	{
-		return server.getPlayerList().getPlayerByUsername(username);
+		return server.getConfigurationManager().getPlayerByUsername(username);
 	}
 
 	public static EntityPlayerMP getPlayerBaseServerFromPlayerUsername(String username, boolean ignoreCase)// Credit micdoodle8, radfast
@@ -122,7 +122,7 @@ public class PlayerUtilties {
 			if (ignoreCase) {
 				return getPlayerForUsernameVanilla(server, username);
 			} else {
-				Iterator iterator = server.getPlayerList().getPlayerList().iterator();
+				Iterator iterator = server.getConfigurationManager().playerEntityList.iterator();
 				EntityPlayerMP entityplayermp;
 
 				do {
