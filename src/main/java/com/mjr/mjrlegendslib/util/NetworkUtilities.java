@@ -9,13 +9,9 @@ import com.mjr.mjrlegendslib.Constants;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.network.INetHandler;
-import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -23,14 +19,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 public class NetworkUtilities {
 	public static void registerGuiHandler(Object mod, IGuiHandler handler) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(mod, handler);
-	}
-
-	public static EntityPlayer getPlayerFromNetHandler(INetHandler handler) {
-		if (handler instanceof NetHandlerPlayServer) {
-			return ((NetHandlerPlayServer) handler).player;
-		} else {
-			return FMLClientHandler.instance().getClientPlayerEntity();
-		}
 	}
 
 	public static void encodeData(ByteBuf buffer, Collection<Object> sendData) throws IOException { // Credit micdoodle8, radfast
