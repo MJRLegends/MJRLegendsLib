@@ -1,13 +1,13 @@
 modLoader="javafml"
 loaderVersion="[25,)"
-displayURL="https://minecraft.curseforge.com/projects/mjrlegendslib"
 issueTrackerURL="https://github.com/MJRLegends/MJRLegendsLib/issues"
-credits="MJRLegends for making the mod"
-authors="MJRLegends"
 [[mods]]
 modId="mjrlegendslib"
 version="1.0.0"
 displayName="MJRLegendsLib"
+displayURL="https://minecraft.curseforge.com/projects/mjrlegendslib"
+credits="MJRLegends for making the mod"
+authors="MJRLegends"
 description='''A library for all of MJRLegends Mods.'''
 [[dependencies.mjrlegendslib]]
     modId="forge"
