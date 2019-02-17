@@ -5,14 +5,14 @@ import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
+import net.minecraftforge.eventbus.api.Event.Result;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class BucketHandler {
 
 	public static BucketHandler INSTANCE = new BucketHandler();
@@ -44,8 +44,8 @@ public class BucketHandler {
 
 		Item bucket = buckets.get(block);
 
-		if (bucket != null && block.getMetaFromState(state) == 0) {
-			world.setBlockToAir(position.getBlockPos());
+		if (bucket != null) {
+			world.setBlockState(position.getBlockPos(), Blocks.AIR.getDefaultState());
 			return new ItemStack(bucket);
 		}
 

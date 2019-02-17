@@ -7,8 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @SuppressWarnings("rawtypes")
 public abstract class PacketSimpleBase extends PacketBase implements Packet {
@@ -32,14 +32,14 @@ public abstract class PacketSimpleBase extends PacketBase implements Packet {
 		this.encodeInto(var1);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public abstract void handleClientSide(EntityPlayer player);
 
 	@Override
 	public abstract void handleServerSide(EntityPlayer player);
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public abstract void processPacket(INetHandler var1);
 

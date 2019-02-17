@@ -1,23 +1,7 @@
 package com.mjr.mjrlegendslib.util;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
-
-import com.mjr.mjrlegendslib.Constants;
-
-import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.IGuiHandler;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-
 public class NetworkUtilities {
-	public static void registerGuiHandler(Object mod, IGuiHandler handler) {
+/*	public static void registerGuiHandler(Object mod, IGuiHandler handler) { TODO 1.13
 		NetworkRegistry.INSTANCE.registerGuiHandler(mod, handler);
 	}
 
@@ -132,5 +116,5 @@ public class NetworkUtilities {
 		}
 
 		return objList;
-	}
+	}*/
 }

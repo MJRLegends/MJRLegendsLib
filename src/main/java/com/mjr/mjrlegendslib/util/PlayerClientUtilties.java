@@ -4,13 +4,13 @@ import com.mjr.mjrlegendslib.Constants;
 
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class PlayerClientUtilties {
-    @SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
     public static EntityPlayerSP getPlayerBaseClientFromPlayer(EntityPlayer player, boolean ignoreCase) // Credit micdoodle8, radfast
     {
         EntityPlayerSP clientPlayer = FMLClientHandler.instance().getClientPlayerEntity();

@@ -1,17 +1,7 @@
 package com.mjr.mjrlegendslib.util;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-
-import com.mjr.mjrlegendslib.Constants;
-import com.mjr.mjrlegendslib.block.BlockTuple;
-
 public class BlockUtilities {
-	public static ItemStack stringToItemStack(String s, String caller, boolean logging) {
+	/*public static ItemStack stringToItemStack(String s, String caller, boolean logging) {  TODO 1.13
 		BlockTuple tuple = stringToBlock(s, caller, logging);
 		return new ItemStack(tuple.block, 1, tuple.meta);
 	}
@@ -63,5 +53,5 @@ public class BlockUtilities {
 		}
 
 		return new BlockTuple(block, meta);
-	}
+	}*/
 }

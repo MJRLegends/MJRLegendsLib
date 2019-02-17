@@ -3,16 +3,13 @@ package com.mjr.mjrlegendslib.util;
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.ForgeI18n;
 
-import com.mjr.mjrlegendslib.Constants;
-
-@SuppressWarnings("deprecation")
 public class TranslateUtilities {
 	// Credit micdoodle8, radfast
 
 	public static String translate(String key, boolean logError) {
-		String result = I18n.translateToLocal(key);
+		String result = ForgeI18n.parseMessage(key);
 		int comment = result.indexOf('#');
 		String ret = (comment > 0) ? result.substring(0, comment).trim() : result;
 		for (int i = 0; i < key.length(); ++i) {
@@ -25,7 +22,7 @@ public class TranslateUtilities {
 	}
 
 	public static String translate(String key) {
-		String result = I18n.translateToLocal(key);
+		String result = ForgeI18n.parseMessage(key);
 		int comment = result.indexOf('#');
 		String ret = (comment > 0) ? result.substring(0, comment).trim() : result;
 		for (int i = 0; i < key.length(); ++i) {
@@ -45,7 +42,7 @@ public class TranslateUtilities {
 	}
 
 	public static String translateWithFormat(String key, Object... values) {
-		String result = I18n.translateToLocalFormatted(key, values);
+		String result = ForgeI18n.parseFormat(key, values);
 		int comment = result.indexOf('#');
 		String ret = (comment > 0) ? result.substring(0, comment).trim() : result;
 		for (int i = 0; i < key.length(); ++i) {

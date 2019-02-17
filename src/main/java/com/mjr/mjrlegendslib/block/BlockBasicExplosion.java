@@ -1,10 +1,7 @@
 package com.mjr.mjrlegendslib.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -14,17 +11,19 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.IProperty;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.BlockStateContainer;
 
 public abstract class BlockBasicExplosion extends Block {
 	public static final PropertyBool EXPLODE = PropertyBool.create("explode");
 
 	public BlockBasicExplosion() {
-		super(Material.TNT);
+		super(Properties);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(EXPLODE, Boolean.valueOf(false)));
 		this.setCreativeTab(CreativeTabs.REDSTONE);
 	}

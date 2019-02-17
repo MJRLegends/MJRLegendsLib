@@ -1,32 +1,8 @@
 package com.mjr.mjrlegendslib.util;
 
-import java.io.IOException;
-import java.util.List;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.common.model.IModelState;
-import net.minecraftforge.common.model.TRSRTransformation;
-
-import org.lwjgl.opengl.GL11;
-
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
-import com.mjr.mjrlegendslib.client.model.OBJLoaderCustom;
-
 public class ModelUtilities {
 	// Credit micdoodle8, radfast
-	public static void drawBakedModel(IBakedModel model) {
+	/*public static void drawBakedModel(IBakedModel model) {  TODO 1.13
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder worldrenderer = tessellator.getBuffer();
 		worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
@@ -65,7 +41,7 @@ public class ModelUtilities {
 
 	public static IBakedModel modelFromOBJForge(ResourceLocation loc, List<String> visibleGroups, IModelState parentState) throws Exception {
 		OBJModel model = (OBJModel) ModelLoaderRegistry.getModel(loc);
-		Function<ResourceLocation, TextureAtlasSprite> spriteFunction = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+		Function<ResourceLocation, TextureAtlasSprite> spriteFunction = location -> Minecraft.getInstance().getTextureMap().getAtlasSprite(location.toString());
 		return model.bake(new OBJModel.OBJState(visibleGroups, false, parentState), DefaultVertexFormats.ITEM, spriteFunction);
 	}
 
@@ -79,15 +55,15 @@ public class ModelUtilities {
 
 	public static IBakedModel modelFromOBJ(ResourceLocation loc, List<String> visibleGroups, IModelState parentState) throws IOException {
 		IModel model = OBJLoaderCustom.instance.loadModel(loc);
-		Function<ResourceLocation, TextureAtlasSprite> spriteFunction = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+		Function<ResourceLocation, TextureAtlasSprite> spriteFunction = location -> Minecraft.getInstance().getTextureMap().getAtlasSprite(location.toString());
 		return model.bake(new OBJModel.OBJState(visibleGroups, false, parentState), DefaultVertexFormats.ITEM, spriteFunction);
-	}
+	}*/
 
-	public static IBakedModel getModelFromRegistry(ModelResourceLocation modelResourceLocation) {
+	/*public static IBakedModel getModelFromRegistry(ModelResourceLocation modelResourceLocation) { TODO 1.13
 		return MCUtilities.getClient().getRenderItem().getItemModelMesher().getModelManager().getModel(modelResourceLocation);
 	}
 
 	public static IBakedModel getModelFromRegistry(String texturePrefix, String name) {
 		return MCUtilities.getClient().getRenderItem().getItemModelMesher().getModelManager().getModel(new ModelResourceLocation(texturePrefix + name, "inventory"));
-	}
+	}*/
 }

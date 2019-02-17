@@ -1,6 +1,5 @@
 package com.mjr.mjrlegendslib.command;
 
-import net.minecraft.command.CommandResultStats.Type;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

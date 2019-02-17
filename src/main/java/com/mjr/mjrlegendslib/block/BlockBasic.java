@@ -6,8 +6,7 @@ import net.minecraft.block.material.Material;
 public class BlockBasic extends Block {
 
 	public BlockBasic(Material material) {
-		super(material);
-		this.setHarvestLevel("pickaxe", 1);
+		super(Properties.create(material));
 	}
 
 }
