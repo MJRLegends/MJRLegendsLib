@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[25,)"
+displayURL="https://minecraft.curseforge.com/projects/mjrlegendslib"
+issueTrackerURL="https://github.com/MJRLegends/MJRLegendsLib/issues"
+credits="MJRLegends for making the mod"
+authors="MJRLegends"
+[[mods]]
+modId="mjrlegendslib"
+version="1.0.0"
+displayName="MJRLegendsLib"
+description='''A library for all of MJRLegends Mods.'''
+[[dependencies.mjrlegendslib]]
+    modId="forge"
+    mandatory=true
+    versionRange="[25,)"
+    ordering="NONE"
+    side="BOTH"
+	
+[[dependencies.mjrlegendslib]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.13.2]"
+    ordering="NONE"
+    side="BOTH"
