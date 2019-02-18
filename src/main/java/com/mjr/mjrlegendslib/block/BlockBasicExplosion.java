@@ -1,125 +1,119 @@
 package com.mjr.mjrlegendslib.block;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.IProperty;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.BlockStateContainer;
 
 public abstract class BlockBasicExplosion extends Block {
-	public static final PropertyBool EXPLODE = PropertyBool.create("explode");
+	public static final BooleanProperty field_212569_a = BlockStateProperties.field_212646_x;
 
-	public BlockBasicExplosion() {
-		super(Properties);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(EXPLODE, Boolean.valueOf(false)));
-		this.setCreativeTab(CreativeTabs.REDSTONE);
+	public BlockBasicExplosion(Block.Properties builder) {
+		super(builder);
+		this.setDefaultState(this.getDefaultState().with(field_212569_a, Boolean.valueOf(false)));
 	}
 
-	@Override
-	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		super.onBlockAdded(worldIn, pos, state);
+	public void onBlockAdded(IBlockState state, World worldIn, BlockPos pos, IBlockState oldState) {
+		if (oldState.getBlock() != state.getBlock()) {
+			if (worldIn.isBlockPowered(pos)) {
+				this.explode(worldIn, pos);
+				worldIn.removeBlock(pos);
+			}
 
-		if (worldIn.isBlockPowered(pos)) {
-			this.onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, Boolean.valueOf(true)));
-			worldIn.setBlockToAir(pos);
-		}
-	}
-
-	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		if (worldIn.isBlockPowered(pos)) {
-			this.onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, Boolean.valueOf(true)));
-			worldIn.setBlockToAir(pos);
 		}
 	}
 
 	/**
-	 * Called when a player destroys this Block
+	 * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid block, etc.
 	 */
-	@Override
-	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
-		this.explode(worldIn, pos, state, (EntityLivingBase) null);
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		if (worldIn.isBlockPowered(pos)) {
+			this.explode(worldIn, pos);
+			worldIn.removeBlock(pos);
+		}
+
 	}
 
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		ItemStack itemstack = playerIn.getHeldItem(hand);
+	public void dropBlockAsItemWithChance(IBlockState state, World worldIn, BlockPos pos, float chancePerItem, int fortune) {
+		if (!state.get(field_212569_a)) {
+			super.dropBlockAsItemWithChance(state, worldIn, pos, chancePerItem, fortune);
+		}
+	}
 
-		if (!itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
-			this.explode(worldIn, pos, state.withProperty(EXPLODE, Boolean.valueOf(true)), playerIn);
+	/**
+	 * Called before the Block is set to air in the world. Called regardless of if the player's tool can actually collect this block
+	 */
+	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
+		if (!worldIn.isRemote() && !player.isCreative() && state.get(field_212569_a)) {
+			this.explode(worldIn, pos);
+		}
+
+		super.onBlockHarvested(worldIn, pos, state, player);
+	}
+
+	public void explode(World p_196534_1_, BlockPos p_196534_2_) {
+		this.explode(p_196534_1_, p_196534_2_, (EntityLivingBase) null);
+	}
+
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack itemstack = player.getHeldItem(hand);
+		Item item = itemstack.getItem();
+		if (item != Items.FLINT_AND_STEEL && item != Items.FIRE_CHARGE) {
+			return super.onBlockActivated(state, worldIn, pos, player, hand, side, hitX, hitY, hitZ);
+		} else {
+			this.explode(worldIn, pos, player);
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
-
-			if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
-				itemstack.damageItem(1, playerIn);
-			} else if (!playerIn.capabilities.isCreativeMode) {
+			if (item == Items.FLINT_AND_STEEL) {
+				itemstack.damageItem(1, player);
+			} else {
 				itemstack.shrink(1);
 			}
 
 			return true;
-		} else {
-			return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
 		}
 	}
 
-	/**
-	 * Called When an Entity Collided with the Block
-	 */
-	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+	public void onEntityCollision(IBlockState state, World worldIn, BlockPos pos, Entity entityIn) {
 		if (!worldIn.isRemote && entityIn instanceof EntityArrow) {
 			EntityArrow entityarrow = (EntityArrow) entityIn;
-
+			Entity entity = entityarrow.func_212360_k();
 			if (entityarrow.isBurning()) {
-				this.explode(worldIn, pos, worldIn.getBlockState(pos).withProperty(EXPLODE, Boolean.valueOf(true)), entityarrow.shootingEntity instanceof EntityLivingBase ? (EntityLivingBase) entityarrow.shootingEntity : null);
-				worldIn.setBlockToAir(pos);
+				this.explode(worldIn, pos, entity instanceof EntityLivingBase ? (EntityLivingBase) entity : null);
+				worldIn.removeBlock(pos);
 			}
 		}
+
 	}
 
 	/**
 	 * Return whether this block can drop from an explosion.
 	 */
-	@Override
 	public boolean canDropFromExplosion(Explosion explosionIn) {
 		return false;
 	}
 
-	/**
-	 * Convert the given metadata into a BlockState for this Block
-	 */
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(EXPLODE, Boolean.valueOf((meta & 1) > 0));
-	}
-
-	/**
-	 * Convert the BlockState into the correct metadata value
-	 */
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(EXPLODE).booleanValue() ? 1 : 0;
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(field_212569_a);
 	}
 
 	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { EXPLODE });
-	}
+	public abstract void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn);
 
-	@Override
-	public abstract void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn);
-
-	public abstract void explode(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter);
+	public abstract void explode(World worldIn, BlockPos pos, @Nullable EntityLivingBase igniter);
 }

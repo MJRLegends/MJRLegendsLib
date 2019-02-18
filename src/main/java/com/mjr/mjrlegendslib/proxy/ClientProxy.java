@@ -1,11 +1,11 @@
 package com.mjr.mjrlegendslib.proxy;
 
 import com.mjr.mjrlegendslib.client.handlers.MainHandlerClient;
-import com.mjr.mjrlegendslib.client.model.OBJLoaderCustom;
 import com.mjr.mjrlegendslib.util.RegisterUtilities;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -24,7 +24,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void setup(FMLCommonSetupEvent event) {
-		ModelLoaderRegistry.registerLoader(OBJLoaderCustom.instance);
+		ModelLoaderRegistry.registerLoader(OBJLoader.INSTANCE);
 		RegisterUtilities.registerEventHandler(new MainHandlerClient());
 	}
 }

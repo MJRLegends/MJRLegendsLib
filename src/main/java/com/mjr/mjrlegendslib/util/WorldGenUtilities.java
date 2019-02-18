@@ -1,18 +1,8 @@
 package com.mjr.mjrlegendslib.util;
 
-import java.util.Random;
-
-import com.mjr.mjrlegendslib.world.features.WorldGenCustomLake;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
-
 public class WorldGenUtilities {
 
-	public static void generateStructure(WorldGenerator worldGen, World world, Random rand, BlockPos pos) {
+	/*public static void generateStructure(WorldGenerator worldGen, World world, Random rand, BlockPos pos) { TODO 1.13
 		int x = pos.getX() + 8;
 		int z = pos.getZ() + 8;
 		int y = world.getTopSolidOrLiquidBlock(new BlockPos(x, 0, z)).getY();
@@ -83,5 +73,5 @@ public class WorldGenUtilities {
 
 	public static boolean checkValidSpawn(World world, BlockPos position, int size) {
 		return checkValidSpawn(world, position, size, size);
-	}
+	}*/ 
 }

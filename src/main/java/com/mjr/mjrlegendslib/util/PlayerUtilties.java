@@ -9,24 +9,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class PlayerUtilties {
 
-	public static EntityPlayerMP getPlayerFromUUID(String player) {
-		return getPlayerFromUUID(UUID.fromString(player));
-	}
-
-	public static EntityPlayerMP getPlayerFromUUID(UUID player) {
-		return (EntityPlayerMP) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(player);
-	}
+	/*
+	 * public static EntityPlayerMP getPlayerFromUUID(String player) { TODO 1.13 return getPlayerFromUUID(UUID.fromString(player)); }
+	 * 
+	 * public static EntityPlayerMP getPlayerFromUUID(UUID player) { return (EntityPlayerMP) ServerLifecycleHooks.getCurrentServer().getEntityFromUuid(player); }
+	 */
 
 	public static String getUsernameFromUUID(UUID player) {
-		return FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerProfileCache().getProfileByUUID(player).getName();
+		return MCUtilities.getServer().getPlayerProfileCache().getProfileByUUID(player).getName();
 	}
 
 	public static String getUsernameFromUUID(String player) {
-		return FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerProfileCache().getProfileByUUID(UUID.fromString(player)).getName();
+		return MCUtilities.getServer().getPlayerProfileCache().getProfileByUUID(UUID.fromString(player)).getName();
 	}
 
 	public static void sendMessage(EntityPlayer player, String message) {
@@ -131,7 +128,7 @@ public class PlayerUtilties {
 					}
 
 					entityplayermp = (EntityPlayerMP) iterator.next();
-				} while (!entityplayermp.getName().equalsIgnoreCase(username));
+				} while (!entityplayermp.getName().getFormattedText().equalsIgnoreCase(username));
 
 				return entityplayermp;
 			}
@@ -152,7 +149,7 @@ public class PlayerUtilties {
 			return (EntityPlayerMP) player;
 		}
 
-		return getPlayerBaseServerFromPlayerUsername(player.getName(), ignoreCase);
+		return getPlayerBaseServerFromPlayerUsername(player.getName().getFormattedText(), ignoreCase);
 	}
 
 	public static String getName(EntityPlayer player) // Credit micdoodle8, radfast

@@ -1,24 +1,28 @@
 package com.mjr.mjrlegendslib.util;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.common.thread.EffectiveSide;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 public class MCUtilities {
 
-	/*public static boolean isClient() { TODO 1.13
-		return FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT;
+	public static boolean isClient() {
+		return EffectiveSide.get() == LogicalSide.CLIENT;
 	}
 
 	public static boolean isServer() {
-		return FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER;
+		return EffectiveSide.get() == LogicalSide.SERVER;
 	}
 
 	public static Minecraft getClient() {
-		return FMLClientHandler.instance().getClient();
+		return Minecraft.getInstance();
 	}
 
 	public static MinecraftServer getServer() {
-		return FMLCommonHandler.instance().getMinecraftServerInstance();
-	}*/
+		return ServerLifecycleHooks.getCurrentServer();
+	}
 
 	public static Minecraft getMinecraft() {
 		return Minecraft.getInstance();

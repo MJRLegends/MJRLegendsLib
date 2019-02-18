@@ -3,19 +3,17 @@ package com.mjr.mjrlegendslib.util;
 import java.util.List;
 import java.util.Random;
 
-import com.mjr.mjrlegendslib.Constants;
-import com.mjr.mjrlegendslib.item.ItemTuple;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ItemUtilities {
-	public static ItemStack stringToItemStack(String s, String caller, boolean logging) {
+
+	/*public static ItemStack stringToItemStack(String s, String caller, boolean logging) { TODO 1.13
 		ItemTuple tuple = stringToItem(s, caller, logging);
 		return new ItemStack(tuple.item, 1, tuple.meta);
-	}
+	}*/
 
-	public static ItemTuple stringToItem(String s, String caller, boolean logging) {
+	/*public static ItemTuple stringToItem(String s, String caller, boolean logging) {  TODO 1.13
 		int lastColon = s.lastIndexOf(':');
 		int meta = -1;
 		String name;
@@ -50,14 +48,14 @@ public class ItemUtilities {
 		}
 
 		return new ItemTuple(item, meta);
-	}
+	}*/
 
 	public static Item getRandomItemFromList(List<Item> items) {
 		Random rand = new Random();
 		return items.get(rand.nextInt(items.size()));
 	}
 
-	public static ItemStack getRandomItemStackFromItemList(List<Item> items) {
+	/*public static ItemStack getRandomItemStackFromItemList(List<Item> items) { TODO 1.13
 		Random rand = new Random();
 		return new ItemStack(items.get(rand.nextInt(items.size())), 1, 0);
 	}
@@ -66,20 +64,10 @@ public class ItemUtilities {
 		Random rand = new Random();
 		int temp = rand.nextInt(items.size());
 		return new ItemStack(items.get(temp), 1, temp);
-	}
+	}*/
 
 	public static ItemStack getRandomItemStackFromItemStackList(List<ItemStack> items) {
 		Random rand = new Random();
 		return items.get(rand.nextInt(items.size()));
-	}
-
-	public static ItemStack getRandomMetaFromItem(Item item) {
-		Random rand = new Random();
-		return new ItemStack(item, 1, rand.nextInt(item.getMaxDamage()));
-	}
-
-	public static ItemStack getRandomMetaFromItem(ItemStack item) {
-		Random rand = new Random();
-		return new ItemStack(item.getItem(), 1, rand.nextInt(item.getItem().getMaxDamage()));
 	}
 }
