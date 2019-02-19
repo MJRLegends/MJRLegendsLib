@@ -4,11 +4,13 @@ import com.mjr.mjrlegendslib.handlers.MainHandlerServer;
 import com.mjr.mjrlegendslib.proxy.ClientProxy;
 import com.mjr.mjrlegendslib.proxy.IProxy;
 import com.mjr.mjrlegendslib.proxy.ServerProxy;
+import com.mjr.mjrlegendslib.util.MessageUtilities;
 import com.mjr.mjrlegendslib.util.RegisterUtilities;
 
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Constants.modID)
@@ -26,7 +28,7 @@ public class MJRLegendsLib {
 		RegisterUtilities.registerEventHandler(new MainHandlerServer());
 	}
 
-//	public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-//		MessageUtilities.fatalErrorMessageToLog(Constants.modID, "Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported!");
-//	}
+	public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
+		MessageUtilities.fatalErrorMessageToLog(Constants.modID, "Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported!");
+	}
 }

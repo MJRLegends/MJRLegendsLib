@@ -8,6 +8,7 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
+import net.minecraftforge.gradle.common.task.SignJar
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 //apply plugin: 'com.matthewprenger.cursegradle'
@@ -56,12 +57,12 @@ jar {
     }
 }
 
-/*task deobfJar(type: Jar) {
+task devJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'dev'
 }
 
-task signJar(type: SignJar, dependsOn: reobfJar) {
+task signJar(type: SignJar, dependsOn: devJar) {
     onlyIf {
         project.hasProperty('keyStore')
     }
@@ -74,7 +75,7 @@ task signJar(type: SignJar, dependsOn: reobfJar) {
 }
 
 artifacts {
-    archives deobfJar
+    archives devJar
 }
 apply plugin: 'maven'
 uploadArchives {
@@ -87,7 +88,7 @@ uploadArchives {
 	}
 }
 
-curseforge {
+/*curseforge {
 	if (project.hasProperty("curseforge_key")) {
 		apiKey = project.findProperty("curseforge_key")
 		project {
@@ -99,8 +100,8 @@ curseforge {
 			addArtifact(deobfJar)
 		}
 	}
-}
+}*/
 
 build.dependsOn signJar
 tasks.build.dependsOn signJar
-tasks.curseforge.dependsOn build*/
+//tasks.curseforge.dependsOn build
