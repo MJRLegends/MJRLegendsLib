@@ -3,12 +3,23 @@ package com.mjr.mjrlegendslib.util;
 import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving.SpawnPlacementType;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -76,5 +87,29 @@ public class RegisterUtilities {
 
 	public static void registerWorldGenerator(IWorldGenerator generator) {
 		GameRegistry.registerWorldGenerator(generator, 0);
+	}
+
+	public static void setFireBurn(Block block, int encouragement, int flammibility) {
+		Blocks.fire.setFireInfo(block, encouragement, flammibility);
+	}
+
+	public static void registerEntityPlacement(Class<? extends Entity> entity, SpawnPlacementType type) {
+		EntitySpawnPlacementRegistry.setPlacementType(entity, type);
+	}
+
+	public static void registerEndermanCarriable(Block block) {
+		EntityEnderman.setCarriable(block, true);
+	}
+
+	public void registerProjectileDispense(Item item, IBehaviorDispenseItem projectile) {
+		BlockDispenser.dispenseBehaviorRegistry.putObject(item, projectile);
+	}
+
+	public static void registerForgeBucket(Fluid fluid) {
+		FluidRegistry.addBucketForFluid(fluid);
+	}
+
+	public static void registerBiomeTypes(BiomeGenBase biome, Type... types) {
+		BiomeDictionary.registerBiomeType(biome, types);
 	}
 }
