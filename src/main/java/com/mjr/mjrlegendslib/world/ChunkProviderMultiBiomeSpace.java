@@ -3,6 +3,8 @@ package com.mjr.mjrlegendslib.world;
 import java.util.List;
 import java.util.Random;
 
+import com.mjr.mjrlegendslib.world.gen.MapGenBaseMeta;
+
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
@@ -16,8 +18,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
-
-import com.mjr.mjrlegendslib.world.gen.MapGenBaseMeta;
 
 public abstract class ChunkProviderMultiBiomeSpace extends ChunkProviderBase {
 	protected Random rand;

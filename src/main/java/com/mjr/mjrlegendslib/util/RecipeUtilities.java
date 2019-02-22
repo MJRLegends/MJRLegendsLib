@@ -1,11 +1,11 @@
 package com.mjr.mjrlegendslib.util;
 
+import com.mjr.mjrlegendslib.recipe.ShapedNBTRecipe;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-
-import com.mjr.mjrlegendslib.recipe.ShapedNBTRecipe;
 
 public class RecipeUtilities {
 	public static void addOreRecipe(ItemStack result, Object[] obj) {

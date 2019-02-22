@@ -5,8 +5,6 @@ import java.util.List;
 
 import net.minecraft.util.StatCollector;
 
-import com.mjr.mjrlegendslib.Constants;
-
 public class TranslateUtilities {
 	// Credit micdoodle8, radfast
 
@@ -17,7 +15,7 @@ public class TranslateUtilities {
 		for (int i = 0; i < key.length(); ++i) {
 			Character c = key.charAt(i);
 			if (logError && Character.isUpperCase(c)) {
-				//MessageUtilities.fatalErrorMessageToLog(Constants.modID, ret);
+				// MessageUtilities.fatalErrorMessageToLog(Constants.modID, ret);
 			}
 		}
 		return ret;
@@ -30,7 +28,7 @@ public class TranslateUtilities {
 		for (int i = 0; i < key.length(); ++i) {
 			Character c = key.charAt(i);
 			if (Character.isUpperCase(c)) {
-				//MessageUtilities.fatalErrorMessageToLog(Constants.modID, ret);
+				// MessageUtilities.fatalErrorMessageToLog(Constants.modID, ret);
 			}
 		}
 		return ret;
@@ -50,7 +48,7 @@ public class TranslateUtilities {
 		for (int i = 0; i < key.length(); ++i) {
 			Character c = key.charAt(i);
 			if (Character.isUpperCase(c)) {
-				//MessageUtilities.fatalErrorMessageToLog(Constants.modID, ret);
+				// MessageUtilities.fatalErrorMessageToLog(Constants.modID, ret);
 			}
 		}
 		return ret;
