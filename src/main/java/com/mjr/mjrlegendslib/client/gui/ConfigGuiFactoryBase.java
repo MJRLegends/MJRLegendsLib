@@ -8,6 +8,7 @@ import net.minecraftforge.fml.client.IModGuiFactory;
 
 public abstract class ConfigGuiFactoryBase implements IModGuiFactory {
 
+	@Override
 	public void initialize(Minecraft minecraftInstance) {
 	}
 

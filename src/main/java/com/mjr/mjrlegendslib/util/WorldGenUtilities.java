@@ -2,13 +2,13 @@ package com.mjr.mjrlegendslib.util;
 
 import java.util.Random;
 
+import com.mjr.mjrlegendslib.world.features.WorldGenCustomLake;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
-import com.mjr.mjrlegendslib.world.features.WorldGenCustomLake;
 
 public class WorldGenUtilities {
 
@@ -73,7 +73,8 @@ public class WorldGenUtilities {
 
 		for (int i = -checkSize; i <= checkSize; ++i) {
 			for (int j = -checkSize; j <= checkSize; ++j) {
-				if (world.isAirBlock(position.add(i, -1, j)) && world.isAirBlock(position.add(i, -2, j)) || world.getBlockState(position.add(i, -1, j)).getMaterial().isLiquid() && world.getBlockState(position.add(i, -2, j)).getMaterial().isLiquid()) {
+				if (world.isAirBlock(position.add(i, -1, j)) && world.isAirBlock(position.add(i, -2, j))
+						|| world.getBlockState(position.add(i, -1, j)).getMaterial().isLiquid() && world.getBlockState(position.add(i, -2, j)).getMaterial().isLiquid()) {
 					return false;
 				}
 			}

@@ -1,5 +1,8 @@
 package com.mjr.mjrlegendslib.util;
 
+import com.mjr.mjrlegendslib.Constants;
+import com.mjr.mjrlegendslib.block.BlockTuple;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -7,9 +10,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameData;
-
-import com.mjr.mjrlegendslib.Constants;
-import com.mjr.mjrlegendslib.block.BlockTuple;
 
 public class BlockUtilities {
 	public static ItemStack stringToItemStack(String s, String caller, boolean logging) {
