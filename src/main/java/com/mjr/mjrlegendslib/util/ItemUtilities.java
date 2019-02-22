@@ -3,12 +3,12 @@ package com.mjr.mjrlegendslib.util;
 import java.util.List;
 import java.util.Random;
 
+import com.mjr.mjrlegendslib.Constants;
+import com.mjr.mjrlegendslib.item.ItemTuple;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameData;
-
-import com.mjr.mjrlegendslib.Constants;
-import com.mjr.mjrlegendslib.item.ItemTuple;
 
 public class ItemUtilities {
 	public static ItemStack stringToItemStack(String s, String caller, boolean logging) {

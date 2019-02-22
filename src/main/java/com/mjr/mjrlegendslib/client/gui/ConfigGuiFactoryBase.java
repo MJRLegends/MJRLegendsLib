@@ -30,5 +30,6 @@ public abstract class ConfigGuiFactoryBase implements IModGuiFactory {
 	@Override
 	public abstract GuiScreen createConfigGui(GuiScreen parentScreen);
 
+	@Override
 	public abstract Class<? extends GuiScreen> mainConfigGuiClass();
 }
