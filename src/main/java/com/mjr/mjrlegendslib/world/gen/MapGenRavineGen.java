@@ -2,6 +2,8 @@ package com.mjr.mjrlegendslib.world.gen;
 
 import java.util.Random;
 
+import com.mjr.mjrlegendslib.Constants;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -10,8 +12,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenBase;
-
-import com.mjr.mjrlegendslib.Constants;
 
 public class MapGenRavineGen extends MapGenBase {
 	private float[] field_75046_d = new float[1024];
@@ -195,7 +195,7 @@ public class MapGenRavineGen extends MapGenBase {
 	/**
 	 * Digs out the current block, default implementation removes stone, filler, and top block Sets the block to lava if y is less then 10, and air other wise. If setting to air, it also checks to see if we've broken the surface and if so tries to
 	 * make the floor the biome's top block
-	 * 
+	 *
 	 * @param data
 	 *            Block data array
 	 * @param index

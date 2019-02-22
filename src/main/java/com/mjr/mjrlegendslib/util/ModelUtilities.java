@@ -3,6 +3,12 @@ package com.mjr.mjrlegendslib.util;
 import java.io.IOException;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.mjr.mjrlegendslib.client.model.OBJLoaderCustom;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
@@ -17,12 +23,6 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
-
-import org.lwjgl.opengl.GL11;
-
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
-import com.mjr.mjrlegendslib.client.model.OBJLoaderCustom;
 
 public class ModelUtilities {
 	// Credit micdoodle8, radfast

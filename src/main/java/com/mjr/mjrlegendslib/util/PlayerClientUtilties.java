@@ -10,15 +10,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class PlayerClientUtilties {
-    @SideOnly(Side.CLIENT)
-    public static EntityPlayerSP getPlayerBaseClientFromPlayer(EntityPlayer player, boolean ignoreCase) // Credit micdoodle8, radfast
-    {
-        EntityPlayerSP clientPlayer = FMLClientHandler.instance().getClientPlayerEntity();
+	@SideOnly(Side.CLIENT)
+	public static EntityPlayerSP getPlayerBaseClientFromPlayer(EntityPlayer player, boolean ignoreCase) // Credit micdoodle8, radfast
+	{
+		EntityPlayerSP clientPlayer = FMLClientHandler.instance().getClientPlayerEntity();
 
-        if (clientPlayer == null && player != null) {
-            MessageUtilities.fatalErrorMessageToLog(Constants.modID, "Warning: Could not find player base client instance for player " + PlayerUtilties.getName(player));
-        }
+		if (clientPlayer == null && player != null) {
+			MessageUtilities.fatalErrorMessageToLog(Constants.modID, "Warning: Could not find player base client instance for player " + PlayerUtilties.getName(player));
+		}
 
-        return clientPlayer;
-    }
+		return clientPlayer;
+	}
 }
