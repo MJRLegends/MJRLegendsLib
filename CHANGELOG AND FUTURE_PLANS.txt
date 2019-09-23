@@ -5,6 +5,11 @@
 
 
 ===========================================Released Updates===========================================
+v1.1.6
+*Fixed/Clean up of formatting
+*Added new methods/made changes to RegisterUtilities class
+*Added a EntityTNTPrimedBase class
+
 v1.1.5
 *Fixed client class crashing on server side
 
