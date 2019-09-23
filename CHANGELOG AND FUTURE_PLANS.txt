@@ -9,6 +9,8 @@ v1.1.2
 *Fixed/Clean up of formatting
 *Added new methods/made changes to RegisterUtilities class
 *Added a EntityTNTPrimedBase class
+*Fixed client class crashing on server side
+*Added a bunch of new methods for use in a new mod
 
 v1.1.1
 *Added a ConfigGuiFactoryBase class
