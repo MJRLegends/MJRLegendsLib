@@ -5,6 +5,11 @@
 
 
 ===========================================Released Updates===========================================
+v1.1.2
+*Fixed/Clean up of formatting
+*Added new methods/made changes to RegisterUtilities class
+*Added a EntityTNTPrimedBase class
+
 v1.1.1
 *Added a ConfigGuiFactoryBase class
 *Added Proxy Classes
