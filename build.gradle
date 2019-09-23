@@ -86,7 +86,6 @@ curseforge {
 			addGameVersion "${minecraft_version}"
 			mainArtifact(jar) {
 			}
-			addArtifact(apiJar)
 			addArtifact(deobfJar)
 		}
 	}
