@@ -2,12 +2,17 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
+		maven {
+			url 'https://plugins.gradle.org/m2/'
+		}
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+		classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.1.0"
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'com.matthewprenger.cursegradle'
 //Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
 
 version = "1.8.9-1.1.2"
@@ -57,8 +62,6 @@ task signJar(type: SignJar, dependsOn: reobfJar) {
     outputFile = jar.archivePath
 }
 
-build.dependsOn signJar
-
 artifacts {
     archives deobfJar
 }
@@ -72,3 +75,22 @@ uploadArchives {
 		}
 	}
 }
+
+curseforge {
+    if (project.hasProperty('curseforge_key')){
+		apiKey = project.getProperty("curseforge_key")
+		project {
+			id = "284331"
+			releaseType = "release"
+			addGameVersion "${minecraft_version}"
+			mainArtifact(jar) {
+			}
+			addArtifact(apiJar)
+			addArtifact(deobfJar)
+		}
+	}
+}
+
+build.dependsOn signJar
+tasks.build.dependsOn signJar
+tasks.curseforge.dependsOn build
