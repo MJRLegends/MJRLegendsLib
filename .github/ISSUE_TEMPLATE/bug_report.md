@@ -1,3 +1,12 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: needs investigating
+assignees: MJRLegends
+
+---
+
 ### ---Issue Report---
 **(PLEASE DONT DELETE THIS TEMPLATE, YOUR ISSUE WILL BE IGNORED AND CLOSED IF YOU DO.)**
 
@@ -11,7 +20,7 @@
 2. [Second step]
 
 **Crash log/Log (if applicable):** [PASTEBIN. Do NOT copy and paste the log into the issue post itself. See below on how to get them]
-> *How do i locate a crash log* see https://docs.mjrlegends.com/Minecraft/crash-log/
+> *How do i locate a crash log* see https://docs.mjrlegends.com/General%20Minecraft/crash-log/
 
 **Screenshots (if applicable):** 
 
