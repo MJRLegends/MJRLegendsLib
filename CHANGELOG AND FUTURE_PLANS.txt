@@ -5,6 +5,9 @@
 
 
 ===========================================Released Updates===========================================
+v1.1.7
+*Fixed gravel sound type
+
 v1.1.6
 *Fixed/Clean up of formatting
 *Added new methods/made changes to RegisterUtilities class
