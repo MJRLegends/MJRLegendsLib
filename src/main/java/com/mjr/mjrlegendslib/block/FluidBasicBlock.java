@@ -22,7 +22,6 @@ public abstract class FluidBasicBlock extends BlockFluidClassic {
 		this.setUnlocalizedName(assetName);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean canDisplace(IBlockAccess world, BlockPos pos) {
 		if (world.getBlockState(pos).getBlock().getMaterial().isLiquid()) {
@@ -32,7 +31,6 @@ public abstract class FluidBasicBlock extends BlockFluidClassic {
 		return super.canDisplace(world, pos);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean displaceIfPossible(World world, BlockPos pos) {
 		if (world.getBlockState(pos).getBlock().getMaterial().isLiquid()) {
