@@ -44,9 +44,6 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkProviderBase {
 	protected IBlockState stoneBlock;
 	protected IBlockState waterBlock;
 
-	private static final int CHUNK_SIZE_X = 16;
-	private static final int CHUNK_SIZE_Z = 16;
-
 	protected int seaLevel = 63;
 	protected boolean seaIceLayer = false;
 
