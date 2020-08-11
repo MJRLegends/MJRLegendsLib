@@ -41,8 +41,6 @@ public abstract class ChunkProviderMultiBiomeSpace extends ChunkProviderBase {
 	double[] maxLimitRegion;
 	double[] depthRegion;
 
-	private final int CRATER_PROB = this.getCraterProbability();
-
 	protected IBlockState stoneBlock;
 	protected IBlockState waterBlock;
 
