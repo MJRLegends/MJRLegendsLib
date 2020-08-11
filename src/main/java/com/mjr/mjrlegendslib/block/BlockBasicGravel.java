@@ -3,6 +3,7 @@ package com.mjr.mjrlegendslib.block;
 import java.util.Random;
 
 import net.minecraft.block.BlockFalling;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -12,6 +13,7 @@ public class BlockBasicGravel extends BlockFalling {
 		super();
 		this.setHardness(0.6F);
 		this.setUnlocalizedName(name);
+		this.setSoundType(SoundType.GROUND);
 	}
 
 	@Override
