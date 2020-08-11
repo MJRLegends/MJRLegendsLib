@@ -13,7 +13,7 @@ public class BlockBasicGravel extends BlockFalling {
 		super();
 		this.setHardness(0.6F);
 		this.setUnlocalizedName(name);
-		this.setSoundType(SoundType.GROUND);
+		this.stepSound = soundTypeGravel;
 	}
 
 	@Override
