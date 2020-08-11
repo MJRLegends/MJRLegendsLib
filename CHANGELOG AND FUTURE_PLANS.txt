@@ -7,6 +7,7 @@
 ===========================================Released Updates===========================================
 v1.1.7
 *Fixed gravel sound type
+*Removed not needed code
 
 v1.1.6
 *Fixed/Clean up of formatting
