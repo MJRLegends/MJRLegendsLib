@@ -26,7 +26,7 @@ public class MapGenRavineGen extends MapGenBase {
 	
 	public MapGenRavineGen() {
 		super();
-		this.liquidBlock = Blocks.LAVA;
+		this.liquidBlock = Blocks.lava;
 	}
 
 	protected void func_180707_a(long p_180707_1_, int p_180707_3_, int p_180707_4_, ChunkPrimer p_180707_5_, double p_180707_6_, double p_180707_8_, double p_180707_10_, float p_180707_12_, float p_180707_13_, float p_180707_14_, int p_180707_15_,
