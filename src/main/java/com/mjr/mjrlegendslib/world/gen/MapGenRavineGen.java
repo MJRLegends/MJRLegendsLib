@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.mjr.mjrlegendslib.Constants;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -15,6 +16,18 @@ import net.minecraft.world.gen.MapGenBase;
 
 public class MapGenRavineGen extends MapGenBase {
 	private float[] field_75046_d = new float[1024];
+	
+	private Block liquidBlock;
+
+	public MapGenRavineGen(Block liquidBlock) {
+		super();
+		this.liquidBlock = liquidBlock;
+	}
+	
+	public MapGenRavineGen() {
+		super();
+		this.liquidBlock = Blocks.LAVA;
+	}
 
 	protected void func_180707_a(long p_180707_1_, int p_180707_3_, int p_180707_4_, ChunkPrimer p_180707_5_, double p_180707_6_, double p_180707_8_, double p_180707_10_, float p_180707_12_, float p_180707_13_, float p_180707_14_, int p_180707_15_,
 			int p_180707_16_, double p_180707_17_) {
@@ -221,7 +234,7 @@ public class MapGenRavineGen extends MapGenBase {
 
 		if (state.getBlock() == Blocks.stone || state.getBlock() == top.getBlock() || state.getBlock() == filler.getBlock()) {
 			if (y < 10) {
-				data.setBlockState(x, y, z, Blocks.lava.getDefaultState());
+				data.setBlockState(x, y, z, liquidBlock.getDefaultState());
 			} else {
 				data.setBlockState(x, y, z, Blocks.air.getDefaultState());
 
