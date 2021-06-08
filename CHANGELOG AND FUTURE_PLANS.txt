@@ -5,6 +5,9 @@
 
 
 ===========================================Released Updates===========================================
+v1.2.1
+*Added ability to have custom liquid block in MapGenRavineGen
+
 v1.2.0
 *Fixed gravel sound type
 *Removed not needed code
